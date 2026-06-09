@@ -27,29 +27,29 @@
     --blue: #1A6EBF;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 14px; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 16px; }
 
   /* ── HEADER ── */
   header {
     background: var(--text);
     padding: 0 2rem;
     display: flex; align-items: center; justify-content: space-between;
-    height: 58px; position: sticky; top: 0; z-index: 100;
+    height: 66px; position: sticky; top: 0; z-index: 100;
     gap: 1rem;
   }
-  .logo { font-family: 'Bebas Neue', cursive; font-size: 1.45rem; letter-spacing: 0.1em; color: #fff; white-space: nowrap; }
+  .logo { font-family: 'Bebas Neue', cursive; font-size: 1.75rem; letter-spacing: 0.1em; color: #fff; white-space: nowrap; }
   .logo em { color: var(--orange); font-style: normal; }
   .header-right { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
-  .date-display { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: #aaa; white-space: nowrap; }
+  .date-display { font-family: 'DM Mono', monospace; font-size: 0.9rem; color: #aaa; white-space: nowrap; }
   #today-date { color: var(--orange); font-weight: 600; }
   input[type="date"] {
     background: #2a2d35; border: 1px solid #3a3d45; color: #fff;
-    padding: 0.3rem 0.55rem; border-radius: 6px; font-family: 'DM Mono', monospace; font-size: 0.75rem; cursor: pointer;
+    padding: 0.4rem 0.65rem; border-radius: 6px; font-family: 'DM Mono', monospace; font-size: 0.88rem; cursor: pointer;
   }
   .btn {
-    background: var(--orange); color: #fff; border: none; padding: 0.35rem 0.85rem;
-    border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 0.78rem;
-    font-weight: 600; cursor: pointer; transition: background 0.15s; white-space: nowrap;
+    background: var(--orange); color: #fff; border: none; padding: 0.45rem 1rem;
+    border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 0.92rem;
+    font-weight: 700; cursor: pointer; transition: background 0.15s; white-space: nowrap;
   }
   .btn:hover { background: var(--orange-dark); }
   .btn-ghost { background: transparent; border: 1.5px solid #444; color: #ccc; }
@@ -63,15 +63,15 @@
   /* ── KPI BANNER ── */
   .kpi-banner {
     background: var(--text);
-    border-radius: 12px; padding: 1rem 1.75rem;
+    border-radius: 12px; padding: 1.1rem 1.75rem;
     display: flex; align-items: center; gap: 0; flex-wrap: wrap;
     margin-bottom: 1.75rem;
   }
-  .kpi-item { display: flex; flex-direction: column; gap: 0.12rem; padding: 0 1.5rem; border-right: 1px solid #333; }
+  .kpi-item { display: flex; flex-direction: column; gap: 0.15rem; padding: 0 1.5rem; border-right: 1px solid #333; }
   .kpi-item:first-child { padding-left: 0; }
   .kpi-item:last-child { border-right: none; }
-  .kpi-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.1em; color: #888; }
-  .kpi-val { font-family: 'Bebas Neue', cursive; font-size: 1.6rem; line-height: 1; color: var(--orange); }
+  .kpi-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #aaa; font-weight: 600; }
+  .kpi-val { font-family: 'Bebas Neue', cursive; font-size: 2rem; line-height: 1; color: var(--orange); }
   .kpi-val.wht { color: #fff; }
   .kpi-val.grn { color: #3eda8a; }
   .kpi-val.rd { color: #f87171; }
@@ -81,26 +81,26 @@
   .section-hd {
     display: flex; align-items: center; justify-content: space-between;
     cursor: pointer; user-select: none;
-    padding: 0.55rem 1rem;
+    padding: 0.7rem 1.1rem;
     background: var(--text); border-radius: 8px 8px 0 0;
     margin-bottom: 0;
   }
   .section-hd.open + .section-body { border-radius: 0 0 10px 10px; }
   .section-label {
-    font-family: 'Bebas Neue', cursive; font-size: 0.92rem; letter-spacing: 0.18em;
+    font-family: 'Bebas Neue', cursive; font-size: 1.1rem; letter-spacing: 0.18em;
     color: #fff; display: flex; align-items: center; gap: 0.5rem;
   }
   .section-label .pill {
-    background: var(--orange); color: #fff; font-size: 0.6rem; font-family: 'DM Sans',sans-serif;
-    font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 99px; letter-spacing: 0.06em;
+    background: var(--orange); color: #fff; font-size: 0.72rem; font-family: 'DM Sans',sans-serif;
+    font-weight: 700; padding: 0.18rem 0.55rem; border-radius: 99px; letter-spacing: 0.06em;
     text-transform: uppercase;
   }
-  .toggle-ic { color: #888; font-size: 0.85rem; transition: transform 0.2s; }
+  .toggle-ic { color: #888; font-size: 1rem; transition: transform 0.2s; }
   .section-hd.collapsed .toggle-ic { transform: rotate(-90deg); }
   .section-body {
     background: var(--surface); border: 1px solid var(--border);
     border-top: none; border-radius: 0 0 10px 10px;
-    padding: 1.25rem;
+    padding: 1.35rem;
   }
   .section-body.hidden { display: none; }
 
@@ -112,107 +112,112 @@
   .g6 { display: grid; grid-template-columns: repeat(6,1fr); gap: 1rem; }
 
   /* ── CARD ── */
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem; }
   .card-title {
-    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--muted); margin-bottom: 0.85rem;
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 0.9rem;
     padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
   }
 
   /* ── STAT BLOCK ── */
   .stat-block {
     background: var(--surface2); border: 1px solid var(--border);
-    border-radius: 8px; padding: 0.75rem 0.9rem;
+    border-radius: 8px; padding: 0.85rem 1rem;
     display: flex; flex-direction: column; gap: 0.15rem;
   }
-  .sb-label { font-size: 0.63rem; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); }
-  .sb-val { font-family: 'Bebas Neue', cursive; font-size: 1.75rem; line-height: 1; color: var(--text); }
+  .sb-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); font-weight: 600; }
+  .sb-val { font-family: 'Bebas Neue', cursive; font-size: 2rem; line-height: 1; color: var(--text); }
   .sb-val.orange { color: var(--orange); }
   .sb-val.green { color: var(--green); }
   .sb-val.red { color: var(--red); }
   .sb-val.yellow { color: var(--yellow); }
-  .sb-sub { font-size: 0.67rem; color: var(--muted); margin-top: 0.1rem; }
+  .sb-sub { font-size: 0.78rem; color: var(--muted); margin-top: 0.1rem; }
 
   /* ── BIG METRIC CARD ── */
   .metric-card {
     background: var(--surface); border: 1px solid var(--border);
-    border-radius: 10px; padding: 1rem;
+    border-radius: 10px; padding: 1.1rem;
     display: flex; flex-direction: column; gap: 0.3rem;
   }
-  .mc-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-weight: 600; }
-  .mc-val { font-family: 'Bebas Neue', cursive; font-size: 2.2rem; line-height: 1; color: var(--text); }
+  .mc-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 700; }
+  .mc-val { font-family: 'Bebas Neue', cursive; font-size: 2.6rem; line-height: 1; color: var(--text); }
   .mc-val.orange { color: var(--orange); }
   .mc-val.green { color: var(--green); }
   .mc-val.red { color: var(--red); }
-  .mc-sub { font-size: 0.72rem; color: var(--muted); }
-  .mc-bar-bg { background: var(--border); border-radius: 99px; height: 5px; margin-top: 0.4rem; overflow: hidden; }
+  .mc-sub { font-size: 0.82rem; color: var(--muted); font-weight: 500; }
+  .mc-bar-bg { background: var(--border); border-radius: 99px; height: 6px; margin-top: 0.4rem; overflow: hidden; }
   .mc-bar-fill { height: 100%; border-radius: 99px; background: var(--orange); transition: width 0.5s ease; }
   .mc-bar-fill.green { background: var(--green); }
   .mc-bar-fill.red { background: var(--red); }
   .mc-bar-fill.yellow { background: var(--yellow); }
 
   /* ── INLINE BADGE ── */
-  .ib { font-size: 0.62rem; font-weight: 700; padding: 0.18rem 0.45rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em; display: inline-block; }
+  .ib { font-size: 0.72rem; font-weight: 700; padding: 0.22rem 0.5rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em; display: inline-block; }
   .ib.green { background: var(--green-bg); color: var(--green); }
   .ib.red { background: var(--red-bg); color: var(--red); }
   .ib.yellow { background: var(--yellow-bg); color: var(--yellow); }
   .ib.orange { background: var(--orange-light); color: var(--orange); }
 
   /* ── FIELDS ── */
-  .field-row { display: flex; align-items: center; gap: 0.45rem; margin-bottom: 0.38rem; }
-  .fl { font-size: 0.77rem; color: var(--muted); min-width: 145px; flex-shrink: 0; }
-  .fl.sm { min-width: 95px; }
-  .fl.xs { min-width: 60px; }
+  .field-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.45rem; }
+  .fl { font-size: 0.9rem; color: var(--muted); font-weight: 600; min-width: 155px; flex-shrink: 0; }
+  .fl.sm { min-width: 100px; }
+  .fl.xs { min-width: 65px; }
   input[type="number"], input[type="text"], select, textarea {
-    background: var(--surface2); border: 1px solid var(--border); border-radius: 6px;
-    color: var(--text); padding: 0.3rem 0.5rem;
-    font-family: 'DM Mono', monospace; font-size: 0.8rem; width: 100%;
+    background: var(--surface2); border: 1.5px solid var(--border); border-radius: 6px;
+    color: var(--text); padding: 0.4rem 0.6rem;
+    font-family: 'DM Mono', monospace; font-size: 0.95rem; font-weight: 500; width: 100%;
     transition: border-color 0.15s;
   }
   input:focus, select:focus, textarea:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-light); }
-  textarea { resize: vertical; min-height: 70px; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; }
-  .pfx { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--muted); flex-shrink: 0; }
+  textarea { resize: vertical; min-height: 80px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 400; }
+  .pfx { font-family: 'DM Mono', monospace; font-size: 0.95rem; color: var(--muted); font-weight: 600; flex-shrink: 0; }
   .iw { display: flex; align-items: center; gap: 0.25rem; flex: 1; }
-  .divider { border: none; border-top: 1px solid var(--border); margin: 0.85rem 0; }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 0.9rem 0; }
 
   /* ── CALL CENTER SUMMARY TABLE ── */
   .cc-summary {
-    width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-top: 0.5rem;
+    width: 100%; border-collapse: collapse; font-size: 0.95rem; margin-top: 0.5rem;
   }
   .cc-summary th {
-    font-size: 0.63rem; text-transform: uppercase; letter-spacing: 0.09em;
-    color: var(--muted); padding: 0.4rem 0.75rem; text-align: right;
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.09em;
+    color: var(--muted); padding: 0.5rem 0.75rem; text-align: right;
     border-bottom: 2px solid var(--border); background: var(--surface2);
-    font-weight: 600;
+    font-weight: 700;
   }
   .cc-summary th:first-child { text-align: left; }
-  .cc-summary td { padding: 0.45rem 0.75rem; border-bottom: 1px solid var(--border); text-align: right; }
-  .cc-summary td:first-child { text-align: left; font-weight: 500; color: var(--text); }
+  .cc-summary td { padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); text-align: right; font-size: 0.92rem; }
+  .cc-summary td:first-child { text-align: left; font-weight: 600; color: var(--text); }
   .cc-summary tr:last-child td { border-bottom: none; font-weight: 700; background: var(--surface2); }
   .cc-summary .mono { font-family: 'DM Mono', monospace; }
 
   /* ── CALL BOARD TABLE ── */
-  .cb-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  .cb-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
   .cb-table th {
-    font-size: 0.63rem; text-transform: uppercase; letter-spacing: 0.09em;
-    color: var(--muted); padding: 0.4rem 0.5rem; text-align: center;
-    border-bottom: 2px solid var(--border); background: var(--surface2); font-weight: 600;
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.09em;
+    color: var(--muted); padding: 0.5rem 0.5rem; text-align: center;
+    border-bottom: 2px solid var(--border); background: var(--surface2); font-weight: 700;
   }
   .cb-table th.left { text-align: left; }
-  .cb-table td { padding: 0.3rem 0.4rem; border-bottom: 1px solid var(--border); text-align: center; vertical-align: middle; }
-  .cb-table td.left { text-align: left; color: var(--muted); font-size: 0.78rem; white-space: nowrap; padding-right: 0.75rem; }
+  .cb-table td { padding: 0.38rem 0.4rem; border-bottom: 1px solid var(--border); text-align: center; vertical-align: middle; }
+  .cb-table td.left { text-align: left; color: var(--muted); font-size: 0.9rem; font-weight: 600; white-space: nowrap; padding-right: 0.75rem; }
   .cb-table tr:last-child td { border-bottom: none; background: var(--surface2); font-weight: 700; }
-  .cb-table input[type="number"] { text-align: center; max-width: 75px; }
-  .cb-total { font-family: 'Bebas Neue', cursive; font-size: 1.05rem; color: var(--orange); }
+  .cb-table input[type="number"] { text-align: center; max-width: 80px; }
+  .cb-total { font-family: 'Bebas Neue', cursive; font-size: 1.25rem; color: var(--orange); }
 
-
+  /* ── SECTION STATUS BADGE ── */
+  .section-status { font-size: 0.72rem; font-family: 'DM Mono', monospace; margin-left: 0.75rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; }
+  .status-pending { color: #aaa; }
+  .status-saving  { color: var(--yellow); background: rgba(217,119,6,0.15); }
+  .status-saved   { color: #3eda8a; background: rgba(62,218,138,0.15); }
+  .status-error   { color: #f87171; background: rgba(248,113,113,0.15); }
 
   /* ── TOAST ── */
   #toast {
     position: fixed; bottom: 2rem; left: 50%;
     transform: translateX(-50%) translateY(80px);
-    background: var(--green); color: #fff; padding: 0.65rem 1.5rem;
-    border-radius: 8px; font-weight: 600; font-size: 0.88rem;
+    background: var(--green); color: #fff; padding: 0.75rem 1.75rem;
+    border-radius: 8px; font-weight: 700; font-size: 1rem;
     transition: transform 0.3s ease; z-index: 9999; box-shadow: 0 4px 16px rgba(0,0,0,0.15);
   }
   #toast.show { transform: translateX(-50%) translateY(0); }
@@ -263,7 +268,7 @@
 <!-- ═══════════════ CALL CENTER MANAGER ═══════════════ -->
 <div class="section">
   <div class="section-hd open" onclick="toggleSection(this)">
-    <div class="section-label">📞 Call Center Manager <span class="pill">CSR</span></div>
+    <div class="section-label">📞 Call Center Manager <span class="pill">CSR</span><span class="section-status" id="status-callcenter"></span></div>
     <span class="toggle-ic">▾</span>
   </div>
   <div class="section-body">
@@ -456,7 +461,7 @@
 <!-- ═══════════════ REVIEWS ═══════════════ -->
 <div class="section">
   <div class="section-hd open" onclick="toggleSection(this)">
-    <div class="section-label">⭐ Reviews Collected</div>
+    <div class="section-label">⭐ Reviews Collected<span class="section-status" id="status-reviews"></span></div>
     <span class="toggle-ic">▾</span>
   </div>
   <div class="section-body">
@@ -491,7 +496,7 @@
 <!-- ═══════════════ SALES BY DEPARTMENT ═══════════════ -->
 <div class="section">
   <div class="section-hd open" onclick="toggleSection(this)">
-    <div class="section-label">💰 Sales by Department</div>
+    <div class="section-label">💰 Sales by Department<span class="section-status" id="status-sales"></span></div>
     <span class="toggle-ic">▾</span>
   </div>
   <div class="section-body">
@@ -579,7 +584,7 @@
 <!-- ═══════════════ KEY TAKEAWAYS ═══════════════ -->
 <div class="section">
   <div class="section-hd open" onclick="toggleSection(this)">
-    <div class="section-label">💡 Key Takeaways</div>
+    <div class="section-label">💡 Key Takeaways<span class="section-status" id="status-takeaways"></span></div>
     <span class="toggle-ic">▾</span>
   </div>
   <div class="section-body">
@@ -707,9 +712,10 @@ function calcAll() {
 
 
 
-// ═══════════ PERSIST — Google Sheets ═══════════
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxSM0EflIRzcz0SrAt4hVZG-I0dafSW6SJkKrcfX-WuEU-qQ2ZS3vP7pD_l0SJP7R3dpA/exec';
+// ═══════════ PERSIST — Section-Level Google Sheets ═══════════
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyfyW5s3SnrKkmF_50nPUC-EQGh84DRLr7vRF9ERySoWaTBA8w5pSsvhRPfLYKgCsPRug/exec';
 
+// All fields in sheet-column order
 const FIELDS = [
   'cc-inbound-total','cc-inbound-qual','cc-inbound-booked',
   'cc-outbound','cc-outbound-booked','cc-other-leads',
@@ -740,7 +746,6 @@ const FIELDS = [
   'reflect-right','reflect-learn','reflect-change'
 ];
 
-// Human-readable column headers for the Google Sheet
 const HEADERS = [
   'Date',
   'CC Inbound Total','CC Inbound Qualified','CC Inbound Booked',
@@ -772,87 +777,187 @@ const HEADERS = [
   'Winning','Losing','Team Needs'
 ];
 
-function saveEntry() {
+// ── Section definitions — each person owns their fields ──
+const SECTIONS = {
+  callcenter: [
+    'cc-inbound-total','cc-inbound-qual','cc-inbound-booked',
+    'cc-outbound','cc-outbound-booked','cc-other-leads',
+    'cc-cancel-hvac','cc-cancel-plumb',
+    'mem-opp','mem-hvac','mem-plumb','mem-cc'
+  ],
+  callboard: [
+    'cb-ac5-today','cb-ac5-tom','cb-ac5-72',
+    'cb-ac59-today','cb-ac59-tom','cb-ac59-72',
+    'cb-ac10-today','cb-ac10-tom','cb-ac10-72',
+    'cb-warranty-today','cb-warranty-tom','cb-warranty-72',
+    'cb-repairs-today','cb-repairs-tom','cb-repairs-72',
+    'cb-hvac-techs-today','cb-hvac-techs-tom','cb-hvac-techs-72',
+    'cb-serv-today','cb-serv-tom','cb-serv-72',
+    'cb-pl-inst-today','cb-pl-inst-tom','cb-pl-inst-72',
+    'cb-pl-maint-today','cb-pl-maint-tom','cb-pl-maint-72',
+    'cb-pl-warranty-today','cb-pl-warranty-tom','cb-pl-warranty-72',
+    'cb-plumb-techs-today','cb-plumb-techs-tom','cb-plumb-techs-72',
+    'wx-high','wx-low'
+  ],
+  reviews: [
+    'rev-hvac','rev-plumb','rev-unknown','rev-calls'
+  ],
+  sales: [
+    's-hvac-10-ran','s-hvac-10-sold','s-hvac-10-rev',
+    's-hvac-59-ran','s-hvac-59-sold','s-hvac-59-rev',
+    's-hvac-14-ran','s-hvac-14-sold','s-hvac-14-rev',
+    's-hvac-est-ran','s-hvac-est-sold','s-hvac-est-rev','s-hvac-parts',
+    's-hvac-inst-completed','s-hvac-inst-sold',
+    's-pl-est-ran','s-pl-est-sold','s-pl-est-rev',
+    's-pl-svc-ran','s-pl-svc-sold','s-pl-svc-rev',
+    's-pl-maint-ran','s-pl-maint-sold','s-pl-maint-rev',
+    's-pl-inst-ran','s-pl-inst-sold','s-pl-inst-rev','s-pl-installed'
+  ],
+  takeaways: [
+    'reflect-right','reflect-learn','reflect-change'
+  ]
+};
+
+// Auto-save debounce timers per section
+const autoSaveTimers = {};
+
+// Called on every input change — debounces 2s then patches just that section
+function scheduleAutoSave(sectionKey) {
+  clearTimeout(autoSaveTimers[sectionKey]);
+  autoSaveTimers[sectionKey] = setTimeout(() => patchSection(sectionKey), 2000);
+  showSectionStatus(sectionKey, 'pending');
+}
+
+// Patches only the fields belonging to one section
+function patchSection(sectionKey, silent = false) {
   const date = el('huddle-date').value;
-  const row = [date, ...FIELDS.map(id => (el(id)||{}).value || '')];
+  const fieldIds = SECTIONS[sectionKey];
 
-  // Always save to localStorage as backup
-  const data = {};
-  FIELDS.forEach(id => { const e=el(id); if(e) data[id]=e.value; });
-  localStorage.setItem('huddle_'+date, JSON.stringify(data));
+  // Build a column→value map for only this section's fields
+  const patch = {};
+  fieldIds.forEach(id => {
+    const header = HEADERS[FIELDS.indexOf(id) + 1]; // +1 to skip Date col
+    const e = el(id);
+    patch[header] = e ? e.value : '';
+  });
 
-  // Show saving state
-  showToast('Saving…', false);
+  // Save to localStorage too
+  const local = JSON.parse(localStorage.getItem('huddle_' + date) || '{}');
+  fieldIds.forEach(id => { const e = el(id); if (e) local[id] = e.value; });
+  localStorage.setItem('huddle_' + date, JSON.stringify(local));
 
-  const payload = { date, headers: HEADERS, row };
-  const url = SCRIPT_URL + '?action=save&data=' + encodeURIComponent(JSON.stringify(payload));
+  if (!silent) showSectionStatus(sectionKey, 'saving');
+
+  const payload = { date, headers: HEADERS, patch };
+  const url = SCRIPT_URL + '?action=patch&data=' + encodeURIComponent(JSON.stringify(payload));
 
   fetch(url, { redirect: 'follow' })
     .then(r => r.json())
     .then(res => {
-      if (res.status === 'saved' || res.status === 'updated') {
-        showToast('Saved to Google Sheets ✓');
+      if (res.status === 'patched' || res.status === 'saved' || res.status === 'updated') {
+        if (!silent) showSectionStatus(sectionKey, 'saved');
       } else {
-        showToast('Saved locally (Sheet error)');
+        if (!silent) showSectionStatus(sectionKey, 'error');
       }
     })
-    .catch(() => showToast('Saved locally (offline)'));
+    .catch(() => {
+      if (!silent) showSectionStatus(sectionKey, 'error');
+    });
 }
 
+// Show a small inline status on each section header
+function showSectionStatus(sectionKey, state) {
+  const id = 'status-' + sectionKey;
+  const badge = el(id);
+  if (!badge) return;
+  const states = {
+    pending: { text: '…unsaved', cls: 'status-pending' },
+    saving:  { text: '⟳ saving',  cls: 'status-saving'  },
+    saved:   { text: '✓ saved',   cls: 'status-saved'   },
+    error:   { text: '⚠ local',   cls: 'status-error'   },
+  };
+  const s = states[state] || states.pending;
+  badge.textContent = s.text;
+  badge.className = 'section-status ' + s.cls;
+  if (state === 'saved') setTimeout(() => { badge.textContent = ''; badge.className = 'section-status'; }, 3000);
+}
+
+// Full load from Google Sheets (used on page open and Load button)
 function loadEntry() {
   const date = el('huddle-date').value;
-  FIELDS.forEach(id => { const e=el(id); if(e) e.value=''; });
+  FIELDS.forEach(id => { const e = el(id); if (e) e.value = ''; });
 
-  // Try Google Sheets first
   const url = SCRIPT_URL + '?action=load&date=' + encodeURIComponent(date);
   fetch(url, { redirect: 'follow' })
     .then(r => r.json())
     .then(res => {
       if (res.status === 'found') {
-        // Map header names back to field IDs
         FIELDS.forEach((id, i) => {
-          const header = HEADERS[i + 1]; // +1 to skip Date column
+          const header = HEADERS[i + 1];
           const e = el(id);
-          if (e && res.data[header] !== undefined) e.value = res.data[header];
+          if (e && res.data[header] !== undefined && res.data[header] !== '') {
+            e.value = res.data[header];
+          }
         });
-        showToast('Loaded from Google Sheets');
+        showToast('Loaded from Google Sheets ✓');
       } else {
-        // Fall back to localStorage
         loadFromLocal(date);
       }
       calcAll();
     })
-    .catch(() => {
-      loadFromLocal(date);
-      calcAll();
-    });
+    .catch(() => { loadFromLocal(date); calcAll(); });
 }
 
 function loadFromLocal(date) {
   const raw = localStorage.getItem('huddle_' + date);
   if (raw) {
     const d = JSON.parse(raw);
-    FIELDS.forEach(id => { const e=el(id); if(e && d[id]!==undefined) e.value=d[id]; });
+    FIELDS.forEach(id => { const e = el(id); if (e && d[id] !== undefined) e.value = d[id]; });
     showToast('Loaded from local backup');
   }
 }
 
+// Manual Save button — patches all sections at once
+function saveEntry() {
+  showToast('Saving all sections…', false);
+  const keys = Object.keys(SECTIONS);
+  let done = 0;
+  keys.forEach(key => {
+    const date = el('huddle-date').value;
+    const fieldIds = SECTIONS[key];
+    const patch = {};
+    fieldIds.forEach(id => {
+      const header = HEADERS[FIELDS.indexOf(id) + 1];
+      const e = el(id);
+      patch[header] = e ? e.value : '';
+    });
+    const local = JSON.parse(localStorage.getItem('huddle_' + date) || '{}');
+    fieldIds.forEach(id => { const e = el(id); if (e) local[id] = e.value; });
+    localStorage.setItem('huddle_' + date, JSON.stringify(local));
+
+    const payload = { date, headers: HEADERS, patch };
+    const url = SCRIPT_URL + '?action=patch&data=' + encodeURIComponent(JSON.stringify(payload));
+    fetch(url, { redirect: 'follow' })
+      .then(r => r.json())
+      .then(() => { done++; if (done === keys.length) showToast('All sections saved ✓'); })
+      .catch(() => { done++; if (done === keys.length) showToast('Saved locally (check connection)'); });
+  });
+}
+
 function exportCSV() {
-  // Build CSV from localStorage backup
   const dates = Object.keys(localStorage)
     .filter(k => k.startsWith('huddle_') && k !== 'huddle_log')
-    .map(k => k.replace('huddle_',''))
-    .sort();
+    .map(k => k.replace('huddle_', '')).sort();
   if (!dates.length) { showToast('No local entries to export'); return; }
   const rows = [HEADERS.join(',')];
   dates.forEach(date => {
     const raw = localStorage.getItem('huddle_' + date);
     if (!raw) return;
     const d = JSON.parse(raw);
-    rows.push([date, ...FIELDS.map(f => '"'+(d[f]||'').toString().replace(/"/g,"'")+'"')].join(','));
+    rows.push([date, ...FIELDS.map(f => '"' + (d[f] || '').toString().replace(/"/g, "'") + '"')].join(','));
   });
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([rows.join('\n')],{type:'text/csv'}));
+  a.href = URL.createObjectURL(new Blob([rows.join('\n')], { type: 'text/csv' }));
   a.download = `can_do_crew_huddle_${new Date().toISOString().split('T')[0]}.csv`;
   a.click();
   showToast('CSV Exported!');
@@ -860,7 +965,7 @@ function exportCSV() {
 
 function showToast(msg, autoDismiss = true) {
   const t = el('toast'); t.textContent = msg; t.classList.add('show');
-  if (autoDismiss) setTimeout(()=>t.classList.remove('show'), 2500);
+  if (autoDismiss) setTimeout(() => t.classList.remove('show'), 2800);
 }
 
 function toggleSection(hd) {
@@ -871,9 +976,18 @@ function toggleSection(hd) {
 
 // ═══════════ INIT ═══════════
 window.addEventListener('DOMContentLoaded', () => {
-  el('today-date').textContent = new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
+  el('today-date').textContent = new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
   el('huddle-date').value = new Date().toISOString().split('T')[0];
   document.querySelectorAll('.cb-table input').forEach(i => i.addEventListener('input', calcAll));
+
+  // Wire auto-save to each section's inputs
+  Object.entries(SECTIONS).forEach(([key, fieldIds]) => {
+    fieldIds.forEach(id => {
+      const e = el(id);
+      if (e) e.addEventListener('input', () => scheduleAutoSave(key));
+    });
+  });
+
   loadEntry();
 });
 </script>
