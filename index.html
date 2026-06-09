@@ -1039,6 +1039,7 @@ function loadFromLocal(date) {
     FIELDS.forEach(id => { const e = el(id); if (e && d[id] !== undefined) e.value = d[id]; });
     showToast('Loaded from local backup');
   }
+  calcCommitments();
 }
 
 // Manual Save button — patches all sections at once
@@ -1103,11 +1104,17 @@ window.addEventListener('DOMContentLoaded', () => {
   el('today-date').textContent = new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
   el('huddle-date').value = new Date().toISOString().split('T')[0];
   document.querySelectorAll('.cb-table input').forEach(i => i.addEventListener('input', calcAll));
-  // Wire commitment inputs to calcCommitments
+  // Wire commitment inputs to calcCommitments AND auto-save
   ['c-hvac-10','c-hvac-59','c-hvac-14','c-hvac-est','c-hvac-parts','c-hvac-completing',
    'c-hvac-inst-completing','c-hvac-inst-sales',
    'c-pl-est','c-pl-svc','c-pl-maint','c-pl-inst','c-pl-completing'
-  ].forEach(id => { const e = el(id); if(e) e.addEventListener('input', calcCommitments); });
+  ].forEach(id => {
+    const e = el(id);
+    if (e) {
+      e.addEventListener('input', calcCommitments);
+      e.addEventListener('input', () => scheduleAutoSave('commitments'));
+    }
+  });
 
   // Wire auto-save to each section's inputs
   Object.entries(SECTIONS).forEach(([key, fieldIds]) => {
