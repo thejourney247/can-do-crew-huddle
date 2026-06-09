@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Can Do Crew — Daily Huddle</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #E84E0F;
+    --orange-dark: #C43E0A;
+    --orange-light: #FFF0EB;
+    --orange-mid: #FDE0D3;
+    --bg: #F4F5F7;
+    --surface: #FFFFFF;
+    --surface2: #F8F8F9;
+    --border: #E2E5EA;
+    --border-strong: #CBD0D8;
+    --text: #1A1D23;
+    --muted: #7A8494;
+    --green: #0F9B52;
+    --green-bg: #EAF7F0;
+    --red: #D93025;
+    --red-bg: #FEF0EF;
+    --yellow: #D97706;
+    --yellow-bg: #FFF8EC;
+    --blue: #1A6EBF;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 14px; }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--text);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 58px; position: sticky; top: 0; z-index: 100;
+    gap: 1rem;
+  }
+  .logo { font-family: 'Bebas Neue', cursive; font-size: 1.45rem; letter-spacing: 0.1em; color: #fff; white-space: nowrap; }
+  .logo em { color: var(--orange); font-style: normal; }
+  .header-right { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+  .date-display { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: #aaa; white-space: nowrap; }
+  #today-date { color: var(--orange); font-weight: 600; }
+  input[type="date"] {
+    background: #2a2d35; border: 1px solid #3a3d45; color: #fff;
+    padding: 0.3rem 0.55rem; border-radius: 6px; font-family: 'DM Mono', monospace; font-size: 0.75rem; cursor: pointer;
+  }
+  .btn {
+    background: var(--orange); color: #fff; border: none; padding: 0.35rem 0.85rem;
+    border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 0.78rem;
+    font-weight: 600; cursor: pointer; transition: background 0.15s; white-space: nowrap;
+  }
+  .btn:hover { background: var(--orange-dark); }
+  .btn-ghost { background: transparent; border: 1.5px solid #444; color: #ccc; }
+  .btn-ghost:hover { border-color: var(--orange); color: var(--orange); background: transparent; }
+  .btn-save { background: var(--green); }
+  .btn-save:hover { background: #0a7a40; }
+
+  /* ── LAYOUT ── */
+  main { max-width: 1500px; margin: 0 auto; padding: 1.5rem 2rem 4rem; }
+
+  /* ── KPI BANNER ── */
+  .kpi-banner {
+    background: var(--text);
+    border-radius: 12px; padding: 1rem 1.75rem;
+    display: flex; align-items: center; gap: 0; flex-wrap: wrap;
+    margin-bottom: 1.75rem;
+  }
+  .kpi-item { display: flex; flex-direction: column; gap: 0.12rem; padding: 0 1.5rem; border-right: 1px solid #333; }
+  .kpi-item:first-child { padding-left: 0; }
+  .kpi-item:last-child { border-right: none; }
+  .kpi-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.1em; color: #888; }
+  .kpi-val { font-family: 'Bebas Neue', cursive; font-size: 1.6rem; line-height: 1; color: var(--orange); }
+  .kpi-val.wht { color: #fff; }
+  .kpi-val.grn { color: #3eda8a; }
+  .kpi-val.rd { color: #f87171; }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 1.5rem; }
+  .section-hd {
+    display: flex; align-items: center; justify-content: space-between;
+    cursor: pointer; user-select: none;
+    padding: 0.55rem 1rem;
+    background: var(--text); border-radius: 8px 8px 0 0;
+    margin-bottom: 0;
+  }
+  .section-hd.open + .section-body { border-radius: 0 0 10px 10px; }
+  .section-label {
+    font-family: 'Bebas Neue', cursive; font-size: 0.92rem; letter-spacing: 0.18em;
+    color: #fff; display: flex; align-items: center; gap: 0.5rem;
+  }
+  .section-label .pill {
+    background: var(--orange); color: #fff; font-size: 0.6rem; font-family: 'DM Sans',sans-serif;
+    font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 99px; letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .toggle-ic { color: #888; font-size: 0.85rem; transition: transform 0.2s; }
+  .section-hd.collapsed .toggle-ic { transform: rotate(-90deg); }
+  .section-body {
+    background: var(--surface); border: 1px solid var(--border);
+    border-top: none; border-radius: 0 0 10px 10px;
+    padding: 1.25rem;
+  }
+  .section-body.hidden { display: none; }
+
+  /* ── GRIDS ── */
+  .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  .g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; }
+  .g5 { display: grid; grid-template-columns: repeat(5,1fr); gap: 1rem; }
+  .g6 { display: grid; grid-template-columns: repeat(6,1fr); gap: 1rem; }
+
+  /* ── CARD ── */
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; }
+  .card-title {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 0.85rem;
+    padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+  }
+
+  /* ── STAT BLOCK ── */
+  .stat-block {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 0.75rem 0.9rem;
+    display: flex; flex-direction: column; gap: 0.15rem;
+  }
+  .sb-label { font-size: 0.63rem; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); }
+  .sb-val { font-family: 'Bebas Neue', cursive; font-size: 1.75rem; line-height: 1; color: var(--text); }
+  .sb-val.orange { color: var(--orange); }
+  .sb-val.green { color: var(--green); }
+  .sb-val.red { color: var(--red); }
+  .sb-val.yellow { color: var(--yellow); }
+  .sb-sub { font-size: 0.67rem; color: var(--muted); margin-top: 0.1rem; }
+
+  /* ── BIG METRIC CARD ── */
+  .metric-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1rem;
+    display: flex; flex-direction: column; gap: 0.3rem;
+  }
+  .mc-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-weight: 600; }
+  .mc-val { font-family: 'Bebas Neue', cursive; font-size: 2.2rem; line-height: 1; color: var(--text); }
+  .mc-val.orange { color: var(--orange); }
+  .mc-val.green { color: var(--green); }
+  .mc-val.red { color: var(--red); }
+  .mc-sub { font-size: 0.72rem; color: var(--muted); }
+  .mc-bar-bg { background: var(--border); border-radius: 99px; height: 5px; margin-top: 0.4rem; overflow: hidden; }
+  .mc-bar-fill { height: 100%; border-radius: 99px; background: var(--orange); transition: width 0.5s ease; }
+  .mc-bar-fill.green { background: var(--green); }
+  .mc-bar-fill.red { background: var(--red); }
+  .mc-bar-fill.yellow { background: var(--yellow); }
+
+  /* ── INLINE BADGE ── */
+  .ib { font-size: 0.62rem; font-weight: 700; padding: 0.18rem 0.45rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em; display: inline-block; }
+  .ib.green { background: var(--green-bg); color: var(--green); }
+  .ib.red { background: var(--red-bg); color: var(--red); }
+  .ib.yellow { background: var(--yellow-bg); color: var(--yellow); }
+  .ib.orange { background: var(--orange-light); color: var(--orange); }
+
+  /* ── FIELDS ── */
+  .field-row { display: flex; align-items: center; gap: 0.45rem; margin-bottom: 0.38rem; }
+  .fl { font-size: 0.77rem; color: var(--muted); min-width: 145px; flex-shrink: 0; }
+  .fl.sm { min-width: 95px; }
+  .fl.xs { min-width: 60px; }
+  input[type="number"], input[type="text"], select, textarea {
+    background: var(--surface2); border: 1px solid var(--border); border-radius: 6px;
+    color: var(--text); padding: 0.3rem 0.5rem;
+    font-family: 'DM Mono', monospace; font-size: 0.8rem; width: 100%;
+    transition: border-color 0.15s;
+  }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-light); }
+  textarea { resize: vertical; min-height: 70px; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; }
+  .pfx { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--muted); flex-shrink: 0; }
+  .iw { display: flex; align-items: center; gap: 0.25rem; flex: 1; }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 0.85rem 0; }
+
+  /* ── CALL CENTER SUMMARY TABLE ── */
+  .cc-summary {
+    width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-top: 0.5rem;
+  }
+  .cc-summary th {
+    font-size: 0.63rem; text-transform: uppercase; letter-spacing: 0.09em;
+    color: var(--muted); padding: 0.4rem 0.75rem; text-align: right;
+    border-bottom: 2px solid var(--border); background: var(--surface2);
+    font-weight: 600;
+  }
+  .cc-summary th:first-child { text-align: left; }
+  .cc-summary td { padding: 0.45rem 0.75rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .cc-summary td:first-child { text-align: left; font-weight: 500; color: var(--text); }
+  .cc-summary tr:last-child td { border-bottom: none; font-weight: 700; background: var(--surface2); }
+  .cc-summary .mono { font-family: 'DM Mono', monospace; }
+
+  /* ── CALL BOARD TABLE ── */
+  .cb-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  .cb-table th {
+    font-size: 0.63rem; text-transform: uppercase; letter-spacing: 0.09em;
+    color: var(--muted); padding: 0.4rem 0.5rem; text-align: center;
+    border-bottom: 2px solid var(--border); background: var(--surface2); font-weight: 600;
+  }
+  .cb-table th.left { text-align: left; }
+  .cb-table td { padding: 0.3rem 0.4rem; border-bottom: 1px solid var(--border); text-align: center; vertical-align: middle; }
+  .cb-table td.left { text-align: left; color: var(--muted); font-size: 0.78rem; white-space: nowrap; padding-right: 0.75rem; }
+  .cb-table tr:last-child td { border-bottom: none; background: var(--surface2); font-weight: 700; }
+  .cb-table input[type="number"] { text-align: center; max-width: 75px; }
+  .cb-total { font-family: 'Bebas Neue', cursive; font-size: 1.05rem; color: var(--orange); }
+
+
+
+  /* ── TOAST ── */
+  #toast {
+    position: fixed; bottom: 2rem; left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--green); color: #fff; padding: 0.65rem 1.5rem;
+    border-radius: 8px; font-weight: 600; font-size: 0.88rem;
+    transition: transform 0.3s ease; z-index: 9999; box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+  #toast.show { transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 1100px) { .g6 { grid-template-columns: repeat(3,1fr); } .g5 { grid-template-columns: repeat(3,1fr); } .g4 { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 700px) { .g2,.g3,.g4,.g5,.g6 { grid-template-columns: 1fr; } main { padding: 1rem; } header { height: auto; padding: 0.5rem 1rem; flex-wrap: wrap; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Can Do <em>Crew</em> <span style="color:#555;font-size:1rem;margin-left:0.5rem;">Daily Huddle</span></div>
+  <div class="header-right">
+    <input type="date" id="huddle-date">
+    <button class="btn btn-ghost" onclick="loadEntry()">Load</button>
+    <button class="btn btn-save" onclick="saveEntry()">💾 Save</button>
+    <button class="btn btn-ghost" onclick="exportCSV()">↓ CSV</button>
+    <div class="date-display">Today: <span id="today-date"></span></div>
+  </div>
+</header>
+
+<main>
+
+<!-- ═══════════════ KPI BANNER ═══════════════ -->
+<div class="kpi-banner">
+  <div class="kpi-item"><div class="kpi-label">Today Sold</div><div class="kpi-val" id="kpi-sold">$0</div></div>
+  <div class="kpi-item"><div class="kpi-label">Today Installed</div><div class="kpi-val grn" id="kpi-installed">$0</div></div>
+  <div class="kpi-item"><div class="kpi-label">Total Booked</div><div class="kpi-val wht" id="kpi-total-booked">0</div></div>
+  <div class="kpi-item"><div class="kpi-label">Booking Rate</div><div class="kpi-val" id="kpi-booking-rate">—</div></div>
+  <div class="kpi-item"><div class="kpi-label">Cancel Rate</div><div class="kpi-val" id="kpi-cancel-rate">—</div></div>
+  <div class="kpi-item" style="border-left:1px solid #333;padding-left:1.5rem;display:flex;flex-direction:column;gap:0.4rem;">
+    <div class="kpi-label">☀ Weather — Bakersfield</div>
+    <div style="display:flex;align-items:center;gap:0.75rem;">
+      <div style="display:flex;align-items:center;gap:0.35rem;">
+        <span style="font-size:0.7rem;color:#888;">Hi</span>
+        <input type="number" id="wx-high" placeholder="—" style="width:58px;background:#2a2d35;border:1px solid #3a3d45;color:#fff;border-radius:5px;padding:0.25rem 0.4rem;font-family:'DM Mono',monospace;font-size:0.85rem;text-align:center;">
+        <span style="font-size:0.7rem;color:#888;">°F</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.35rem;">
+        <span style="font-size:0.7rem;color:#888;">Lo</span>
+        <input type="number" id="wx-low" placeholder="—" style="width:58px;background:#2a2d35;border:1px solid #3a3d45;color:#fff;border-radius:5px;padding:0.25rem 0.4rem;font-family:'DM Mono',monospace;font-size:0.85rem;text-align:center;">
+        <span style="font-size:0.7rem;color:#888;">°F</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ CALL CENTER MANAGER ═══════════════ -->
+<div class="section">
+  <div class="section-hd open" onclick="toggleSection(this)">
+    <div class="section-label">📞 Call Center Manager <span class="pill">CSR</span></div>
+    <span class="toggle-ic">▾</span>
+  </div>
+  <div class="section-body">
+
+    <!-- ROW 1: Input cards -->
+    <div class="g4" style="margin-bottom:1rem;">
+
+      <!-- Inbound -->
+      <div class="card">
+        <div class="card-title">Inbound Calls</div>
+        <div class="field-row"><span class="fl">Total Inbound</span><input type="number" id="cc-inbound-total" min="0" placeholder="0" oninput="calcAll()"></div>
+        <div class="field-row"><span class="fl">Qualified</span><input type="number" id="cc-inbound-qual" min="0" placeholder="0" oninput="calcAll()"></div>
+        <div class="field-row"><span class="fl">Booked</span><input type="number" id="cc-inbound-booked" min="0" placeholder="0" oninput="calcAll()"></div>
+      </div>
+
+      <!-- Outbound -->
+      <div class="card">
+        <div class="card-title">Outbound Calls</div>
+        <div class="field-row"><span class="fl">Outbound Made</span><input type="number" id="cc-outbound" min="0" placeholder="0" oninput="calcAll()"></div>
+        <div class="field-row"><span class="fl">Outbound Booked</span><input type="number" id="cc-outbound-booked" min="0" placeholder="0" oninput="calcAll()"></div>
+        <div class="field-row"><span class="fl">Other Leads Booked</span><input type="number" id="cc-other-leads" min="0" placeholder="0" oninput="calcAll()"></div>
+      </div>
+
+      <!-- Cancellations -->
+      <div class="card">
+        <div class="card-title">Cancellations</div>
+        <div class="field-row"><span class="fl">HVAC</span><input type="number" id="cc-cancel-hvac" min="0" placeholder="0" oninput="calcAll()"></div>
+        <div class="field-row"><span class="fl">Plumbing</span><input type="number" id="cc-cancel-plumb" min="0" placeholder="0" oninput="calcAll()"></div>
+      </div>
+
+      <!-- Memberships -->
+      <div class="card">
+        <div class="card-title">Memberships</div>
+        <div class="field-row"><span class="fl">Opportunities</span><input type="number" id="mem-opp" min="0" placeholder="0" oninput="calcAll()"></div>
+        <div class="field-row"><span class="fl">Sold — HVAC</span><input type="number" id="mem-hvac" min="0" placeholder="0" oninput="calcAll()"></div>
+        <div class="field-row"><span class="fl">Sold — Plumbing</span><input type="number" id="mem-plumb" min="0" placeholder="0" oninput="calcAll()"></div>
+        <div class="field-row"><span class="fl">Sold — CC</span><input type="number" id="mem-cc" min="0" placeholder="0" oninput="calcAll()"></div>
+      </div>
+
+    </div>
+
+    <!-- ROW 2: Summary scoreboard -->
+    <div class="g6">
+
+      <div class="metric-card">
+        <div class="mc-label">Total Booked</div>
+        <div class="mc-val orange" id="disp-total-booked">0</div>
+        <div class="mc-sub">Inbound + Outbound + Other</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="mc-label">Inbound Booking %</div>
+        <div class="mc-val" id="disp-booking">—</div>
+        <div class="mc-sub" id="disp-booking-sub">Booked ÷ Qualified</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" id="bar-booking" style="width:0%"></div></div>
+      </div>
+
+      <div class="metric-card">
+        <div class="mc-label">Outbound Booking %</div>
+        <div class="mc-val" id="disp-outbound-rate">—</div>
+        <div class="mc-sub" id="disp-outbound-sub">Booked ÷ Made</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" id="bar-outbound" style="width:0%"></div></div>
+      </div>
+
+      <div class="metric-card">
+        <div class="mc-label">Cancellations</div>
+        <div class="mc-val red" id="disp-cancel-total">0</div>
+        <div class="mc-sub" id="disp-cancel-breakdown">HVAC: 0 &nbsp;|&nbsp; Plumb: 0</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="mc-label">Cancel Rate %</div>
+        <div class="mc-val" id="disp-cancel-rate">—</div>
+        <div class="mc-sub">of Total Booked</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill red" id="bar-cancel" style="width:0%"></div></div>
+      </div>
+
+      <div class="metric-card">
+        <div class="mc-label">Membership Sold / Opp</div>
+        <div class="mc-val" id="disp-mem-rate">—</div>
+        <div class="mc-sub" id="disp-mem-sub">Target: 20%+</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill" id="bar-mem" style="width:0%"></div></div>
+      </div>
+
+    </div>
+
+    <!-- ROW 3: 72-hour look-ahead inside CC section -->
+    <hr class="divider" style="margin-top:1.25rem;">
+    <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.85rem;">72-Hour Call Look-Ahead</div>
+    <div class="g2">
+
+      <!-- HVAC Board -->
+      <div>
+        <div style="font-size:0.72rem;font-weight:700;color:var(--text);margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.07em;">HVAC</div>
+        <table class="cb-table">
+          <thead>
+            <tr>
+              <th class="left">Category</th>
+              <th>Today</th>
+              <th>Tomorrow</th>
+              <th>72 hrs</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="left">AC &lt;5 yrs</td>     <td><input type="number" id="cb-ac5-today"      min="0" placeholder="0"></td><td><input type="number" id="cb-ac5-tom"      min="0" placeholder="0"></td><td><input type="number" id="cb-ac5-72"      min="0" placeholder="0"></td></tr>
+            <tr><td class="left">AC 5–9 yrs</td>       <td><input type="number" id="cb-ac59-today"     min="0" placeholder="0"></td><td><input type="number" id="cb-ac59-tom"     min="0" placeholder="0"></td><td><input type="number" id="cb-ac59-72"     min="0" placeholder="0"></td></tr>
+            <tr><td class="left">AC 10+ yrs</td>       <td><input type="number" id="cb-ac10-today"     min="0" placeholder="0"></td><td><input type="number" id="cb-ac10-tom"     min="0" placeholder="0"></td><td><input type="number" id="cb-ac10-72"     min="0" placeholder="0"></td></tr>
+            <tr><td class="left">Warranty</td>         <td><input type="number" id="cb-warranty-today" min="0" placeholder="0"></td><td><input type="number" id="cb-warranty-tom" min="0" placeholder="0"></td><td><input type="number" id="cb-warranty-72" min="0" placeholder="0"></td></tr>
+            <tr><td class="left">Repairs / Go-backs</td><td><input type="number" id="cb-repairs-today" min="0" placeholder="0"></td><td><input type="number" id="cb-repairs-tom" min="0" placeholder="0"></td><td><input type="number" id="cb-repairs-72" min="0" placeholder="0"></td></tr>
+            <tr>
+              <td class="left" style="color:var(--orange);font-size:0.78rem;">Total</td>
+              <td><span class="cb-total" id="cb-hvac-total-today">0</span></td>
+              <td><span class="cb-total" id="cb-hvac-total-tom">0</span></td>
+              <td><span class="cb-total" id="cb-hvac-total-72">0</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- HVAC Techs Available -->
+        <table class="cb-table" style="margin-top:0.75rem;">
+          <thead>
+            <tr>
+              <th class="left">Techs</th>
+              <th>Today</th>
+              <th>Tomorrow</th>
+              <th>72 hrs</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="left" style="color:var(--text);font-weight:600;">Available</td>
+              <td><input type="number" id="cb-hvac-techs-today" min="0" placeholder="0"></td>
+              <td><input type="number" id="cb-hvac-techs-tom"   min="0" placeholder="0"></td>
+              <td><input type="number" id="cb-hvac-techs-72"    min="0" placeholder="0"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Plumbing Board -->
+      <div>
+        <div style="font-size:0.72rem;font-weight:700;color:var(--text);margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.07em;">Plumbing</div>
+        <table class="cb-table">
+          <thead>
+            <tr>
+              <th class="left">Category</th>
+              <th>Today</th>
+              <th>Tomorrow</th>
+              <th>72 hrs</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="left">Service Calls</td>  <td><input type="number" id="cb-serv-today"       min="0" placeholder="0"></td><td><input type="number" id="cb-serv-tom"       min="0" placeholder="0"></td><td><input type="number" id="cb-serv-72"       min="0" placeholder="0"></td></tr>
+            <tr><td class="left">Installs</td>       <td><input type="number" id="cb-pl-inst-today"    min="0" placeholder="0"></td><td><input type="number" id="cb-pl-inst-tom"    min="0" placeholder="0"></td><td><input type="number" id="cb-pl-inst-72"    min="0" placeholder="0"></td></tr>
+            <tr><td class="left">Maintenance</td>    <td><input type="number" id="cb-pl-maint-today"   min="0" placeholder="0"></td><td><input type="number" id="cb-pl-maint-tom"   min="0" placeholder="0"></td><td><input type="number" id="cb-pl-maint-72"   min="0" placeholder="0"></td></tr>
+            <tr><td class="left">Warranty</td>       <td><input type="number" id="cb-pl-warranty-today" min="0" placeholder="0"></td><td><input type="number" id="cb-pl-warranty-tom" min="0" placeholder="0"></td><td><input type="number" id="cb-pl-warranty-72" min="0" placeholder="0"></td></tr>
+            <tr>
+              <td class="left" style="color:var(--orange);font-size:0.78rem;">Total</td>
+              <td><span class="cb-total" id="cb-pl-total-today">0</span></td>
+              <td><span class="cb-total" id="cb-pl-total-tom">0</span></td>
+              <td><span class="cb-total" id="cb-pl-total-72">0</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Plumbing Techs Available -->
+        <table class="cb-table" style="margin-top:0.75rem;">
+          <thead>
+            <tr>
+              <th class="left">Techs</th>
+              <th>Today</th>
+              <th>Tomorrow</th>
+              <th>72 hrs</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="left" style="color:var(--text);font-weight:600;">Available</td>
+              <td><input type="number" id="cb-plumb-techs-today" min="0" placeholder="0"></td>
+              <td><input type="number" id="cb-plumb-techs-tom"   min="0" placeholder="0"></td>
+              <td><input type="number" id="cb-plumb-techs-72"    min="0" placeholder="0"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ REVIEWS ═══════════════ -->
+<div class="section">
+  <div class="section-hd open" onclick="toggleSection(this)">
+    <div class="section-label">⭐ Reviews Collected</div>
+    <span class="toggle-ic">▾</span>
+  </div>
+  <div class="section-body">
+    <div class="g4">
+      <div class="card">
+        <div class="card-title">Reviews by Department</div>
+        <div class="field-row"><span class="fl">HVAC</span><input type="number" id="rev-hvac" min="0" placeholder="0" oninput="calcAll()"></div>
+        <div class="field-row"><span class="fl">Plumbing</span><input type="number" id="rev-plumb" min="0" placeholder="0" oninput="calcAll()"></div>
+        <div class="field-row"><span class="fl">Unknown / Other</span><input type="number" id="rev-unknown" min="0" placeholder="0" oninput="calcAll()"></div>
+        <div class="field-row"><span class="fl">Total Calls Ran</span><input type="number" id="rev-calls" min="0" placeholder="0" oninput="calcAll()"></div>
+      </div>
+      <div class="metric-card">
+        <div class="mc-label">Total Reviews Today</div>
+        <div class="mc-val green" id="disp-rev-total">0</div>
+        <div class="mc-sub">HVAC + Plumbing + Other</div>
+      </div>
+      <div class="metric-card">
+        <div class="mc-label">% of Calls Reviewed</div>
+        <div class="mc-val" id="disp-rev-rate">—</div>
+        <div class="mc-sub">Reviews ÷ Calls Ran</div>
+        <div class="mc-bar-bg"><div class="mc-bar-fill green" id="bar-rev" style="width:0%"></div></div>
+      </div>
+      <div class="card" style="background:var(--green-bg);border-color:#b3e6cc;">
+        <div class="card-title" style="color:var(--green);border-color:#b3e6cc;">Goal</div>
+        <div style="font-family:'Bebas Neue',cursive;font-size:1.4rem;color:var(--green);">1 Review per Tech per Day</div>
+        <div style="font-size:0.75rem;color:var(--green);margin-top:0.4rem;opacity:0.8;">Every 5-star review grows the brand.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ SALES BY DEPARTMENT ═══════════════ -->
+<div class="section">
+  <div class="section-hd open" onclick="toggleSection(this)">
+    <div class="section-label">💰 Sales by Department</div>
+    <span class="toggle-ic">▾</span>
+  </div>
+  <div class="section-body">
+    <div class="g3" style="margin-bottom:1rem;">
+
+      <!-- HVAC Service -->
+      <div class="card">
+        <div class="card-title">HVAC Service — Ran / Sold / Revenue</div>
+        <table style="width:100%;border-collapse:collapse;font-size:0.8rem;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);">
+              <th style="text-align:left;padding:0.3rem 0.4rem;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:600;">Tier</th>
+              <th style="padding:0.3rem 0.4rem;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:600;">Ran</th>
+              <th style="padding:0.3rem 0.4rem;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:600;">Sold</th>
+              <th style="padding:0.3rem 0.4rem;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:600;text-align:left;">Revenue $</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.78rem;">10+ Tier</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-hvac-10-ran" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-hvac-10-sold" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-hvac-10-rev" placeholder="0" oninput="calcAll()"></div></td></tr>
+            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.78rem;">5–9 Tier</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-hvac-59-ran" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-hvac-59-sold" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-hvac-59-rev" placeholder="0" oninput="calcAll()"></div></td></tr>
+            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.78rem;">1–4 Tier</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-hvac-14-ran" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-hvac-14-sold" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-hvac-14-rev" placeholder="0" oninput="calcAll()"></div></td></tr>
+            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.78rem;">Estimates</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-hvac-est-ran" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-hvac-est-sold" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-hvac-est-rev" placeholder="0" oninput="calcAll()"></div></td></tr>
+            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.78rem;">Parts Jobs</td><td colspan="2"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-hvac-parts" placeholder="0" oninput="calcAll()"></div></td></tr>
+          </tbody>
+        </table>
+        <div class="stat-block" style="margin-top:0.75rem;">
+          <div class="sb-label">HVAC Service Total</div>
+          <div class="sb-val orange" id="disp-hvac-svc-sold">$0</div>
+        </div>
+      </div>
+
+      <!-- HVAC Install -->
+      <div class="card">
+        <div class="card-title">HVAC Install</div>
+        <div class="field-row"><span class="fl">Revenue Completed</span><div class="iw"><span class="pfx">$</span><input type="number" id="s-hvac-inst-completed" placeholder="0" oninput="calcAll()"></div></div>
+        <div class="field-row"><span class="fl">Sales Made</span><div class="iw"><span class="pfx">$</span><input type="number" id="s-hvac-inst-sold" placeholder="0" oninput="calcAll()"></div></div>
+        <div class="stat-block" style="margin-top:0.75rem;">
+          <div class="sb-label">HVAC Install Total</div>
+          <div class="sb-val orange" id="disp-hvac-inst-total">$0</div>
+        </div>
+      </div>
+
+      <!-- Plumbing -->
+      <div class="card">
+        <div class="card-title">Plumbing Service — Ran / Sold / Revenue</div>
+        <table style="width:100%;border-collapse:collapse;font-size:0.8rem;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);">
+              <th style="text-align:left;padding:0.3rem 0.4rem;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:600;">Type</th>
+              <th style="padding:0.3rem 0.4rem;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:600;">Ran</th>
+              <th style="padding:0.3rem 0.4rem;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:600;">Sold</th>
+              <th style="padding:0.3rem 0.4rem;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:600;text-align:left;">Revenue $</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.78rem;">Estimates</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-pl-est-ran" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-pl-est-sold" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-pl-est-rev" placeholder="0" oninput="calcAll()"></div></td></tr>
+            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.78rem;">Service</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-pl-svc-ran" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-pl-svc-sold" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-pl-svc-rev" placeholder="0" oninput="calcAll()"></div></td></tr>
+            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.78rem;">Maintenance</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-pl-maint-ran" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-pl-maint-sold" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-pl-maint-rev" placeholder="0" oninput="calcAll()"></div></td></tr>
+            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.78rem;">Installs</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-pl-inst-ran" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-pl-inst-sold" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-pl-inst-rev" placeholder="0" oninput="calcAll()"></div></td></tr>
+          </tbody>
+        </table>
+        <hr class="divider">
+        <div class="field-row"><span class="fl">Installed Revenue</span><div class="iw"><span class="pfx">$</span><input type="number" id="s-pl-installed" placeholder="0" oninput="calcAll()"></div></div>
+        <div class="stat-block" style="margin-top:0.75rem;">
+          <div class="sb-label">Plumbing Service Total</div>
+          <div class="sb-val orange" id="disp-plumb-sold">$0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Totals row -->
+    <div class="g4">
+      <div class="metric-card"><div class="mc-label">HVAC Service</div><div class="mc-val orange" id="disp-hvac-sold">$0</div></div>
+      <div class="metric-card"><div class="mc-label">HVAC Install</div><div class="mc-val orange" id="disp-hvac-inst-total2">$0</div></div>
+      <div class="metric-card"><div class="mc-label">Total Sold</div><div class="mc-val orange" id="disp-total-sold">$0</div></div>
+      <div class="metric-card"><div class="mc-label">Total Installed</div><div class="mc-val green" id="disp-total-installed">$0</div></div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- ═══════════════ KEY TAKEAWAYS ═══════════════ -->
+<div class="section">
+  <div class="section-hd open" onclick="toggleSection(this)">
+    <div class="section-label">💡 Key Takeaways</div>
+    <span class="toggle-ic">▾</span>
+  </div>
+  <div class="section-body">
+    <div class="g3">
+      <div class="card"><div class="card-title">1. Where are we winning?</div><textarea id="reflect-right" placeholder=""></textarea></div>
+      <div class="card"><div class="card-title">2. Where are we losing?</div><textarea id="reflect-learn" placeholder=""></textarea></div>
+      <div class="card"><div class="card-title">3. What does the team need from leadership to win today?</div><textarea id="reflect-change" placeholder=""></textarea></div>
+    </div>
+  </div>
+</div>
+
+</main>
+<div id="toast">✓ Saved!</div>
+
+<script>
+
+// ═══════════ HELPERS ═══════════
+const el  = id => document.getElementById(id);
+const n   = id => parseFloat((el(id)||{}).value||0)||0;
+const fmt = v  => '$'+Math.round(v).toLocaleString();
+const pct = (a,b) => b>0 ? (a/b*100) : 0;
+const sv  = (id,v) => { const e=el(id); if(e) e.textContent=v; };
+const bar = (id,p,cls) => {
+  const e=el(id); if(!e) return;
+  e.style.width=Math.min(Math.max(p,0),100)+'%';
+  if(cls) e.className='mc-bar-fill '+cls;
+};
+const colorClass = (v, good, warn) => v>=good?'green':v>=warn?'yellow':'red';
+
+// ═══════════ MAIN CALC ═══════════
+function calcAll() {
+  // Call board totals
+  ['today','tom','72'].forEach(day => {
+    sv('cb-hvac-total-'+day, n('cb-ac5-'+day)+n('cb-ac59-'+day)+n('cb-ac10-'+day)+n('cb-warranty-'+day)+n('cb-repairs-'+day) || 0);
+    sv('cb-pl-total-'+day,   n('cb-serv-'+day)+n('cb-pl-inst-'+day)+n('cb-pl-maint-'+day)+n('cb-pl-warranty-'+day) || 0);
+  });
+
+  // CC calcs
+  const inQ       = n('cc-inbound-qual');
+  const inB       = n('cc-inbound-booked');
+  const outMade   = n('cc-outbound');
+  const outB      = n('cc-outbound-booked');
+  const othB      = n('cc-other-leads');
+  const totalB    = inB + outB + othB;
+  const cancelH   = n('cc-cancel-hvac');
+  const cancelP   = n('cc-cancel-plumb');
+  const totalCancel = cancelH + cancelP;
+
+  const inBookRate  = pct(inB, inQ);
+  const outBookRate = pct(outB, outMade);
+  const cancelRate  = pct(totalCancel, totalB);
+
+  sv('disp-total-booked', totalB);
+  sv('kpi-total-booked', totalB);
+
+  // Inbound booking %
+  sv('disp-booking', inQ>0 ? inBookRate.toFixed(1)+'%' : '—');
+  sv('disp-booking-sub', inQ>0 ? `${inB} booked of ${inQ} qualified` : 'Booked ÷ Qualified');
+  bar('bar-booking', inBookRate, colorClass(inBookRate,80,60));
+  const bkEl = el('disp-booking');
+  if(bkEl) bkEl.className='mc-val '+(inBookRate>=80?'green':inBookRate>=60?'yellow':'red');
+
+  // Outbound booking %
+  sv('disp-outbound-rate', outMade>0 ? outBookRate.toFixed(1)+'%' : '—');
+  sv('disp-outbound-sub', outMade>0 ? `${outB} booked of ${outMade} made` : 'Booked ÷ Made');
+  bar('bar-outbound', outBookRate, colorClass(outBookRate,50,30));
+  const obEl = el('disp-outbound-rate');
+  if(obEl) obEl.className='mc-val '+(outBookRate>=50?'green':outBookRate>=30?'yellow':'red');
+
+  // Cancellations
+  sv('disp-cancel-total', totalCancel);
+  sv('disp-cancel-breakdown', `HVAC: ${cancelH}  |  Plumb: ${cancelP}`);
+  sv('disp-cancel-rate', totalB>0 ? cancelRate.toFixed(1)+'%' : '—');
+  bar('bar-cancel', cancelRate, cancelRate<5?'green':cancelRate<10?'yellow':'red');
+  const crEl = el('disp-cancel-rate');
+  if(crEl) crEl.className='mc-val '+(cancelRate<5?'green':cancelRate<10?'yellow':'red');
+
+  // KPI banner rates
+  sv('kpi-booking-rate', inQ>0 ? inBookRate.toFixed(1)+'%' : '—');
+  const kbEl = el('kpi-booking-rate');
+  if(kbEl) kbEl.className='kpi-val '+(inBookRate>=80?'grn':inBookRate>=60?'':' rd');
+  sv('kpi-cancel-rate', totalB>0 ? cancelRate.toFixed(1)+'%' : '—');
+  const kcEl = el('kpi-cancel-rate');
+  if(kcEl) kcEl.className='kpi-val '+(cancelRate<5?'grn':cancelRate<10?'':'rd');
+
+  // Membership
+  const memSold = n('mem-hvac')+n('mem-plumb')+n('mem-cc');
+  const memOpp  = n('mem-opp');
+  const memRate = pct(memSold, memOpp);
+  sv('disp-mem-rate', memOpp>0 ? memRate.toFixed(1)+'%' : '—');
+  sv('disp-mem-sub', memOpp>0 ? `${memSold} sold of ${memOpp} opp` : 'Target: 20%+');
+  bar('bar-mem', memRate*(100/20), colorClass(memRate,20,10));
+  const mmEl = el('disp-mem-rate');
+  if(mmEl) mmEl.className='mc-val '+(memRate>=20?'green':memRate>=10?'yellow':'red');
+
+  // Reviews
+  const revTotal = n('rev-hvac')+n('rev-plumb')+n('rev-unknown');
+  const revCalls = n('rev-calls');
+  const revRate  = pct(revTotal, revCalls);
+  sv('disp-rev-total', revTotal);
+  sv('disp-rev-rate', revCalls>0 ? revRate.toFixed(1)+'%' : '—');
+  bar('bar-rev', revRate, colorClass(revRate,50,25));
+
+  // Sales
+  const hvacSvcSold = n('s-hvac-10-rev')+n('s-hvac-59-rev')+n('s-hvac-14-rev')+n('s-hvac-est-rev')+n('s-hvac-parts');
+  const hvacInstTotal = n('s-hvac-inst-completed')+n('s-hvac-inst-sold');
+  const hvacSold = hvacSvcSold + hvacInstTotal;
+  const hvacInst = n('s-hvac-inst-completed');
+  const plSold   = n('s-pl-est-rev')+n('s-pl-svc-rev')+n('s-pl-maint-rev')+n('s-pl-inst-rev');
+  const plInst   = n('s-pl-installed');
+  const totSold  = hvacSold + plSold;
+  const totInst  = hvacInst + plInst;
+
+  sv('disp-hvac-svc-sold', fmt(hvacSvcSold));
+  sv('disp-hvac-inst-total', fmt(hvacInstTotal));
+  sv('disp-hvac-inst-total2', fmt(hvacInstTotal));
+  sv('disp-hvac-sold', fmt(hvacSvcSold));
+  sv('disp-plumb-sold', fmt(plSold));
+  sv('disp-total-sold', fmt(totSold));
+  sv('disp-total-installed', fmt(totInst));
+  sv('kpi-sold', fmt(totSold));
+  sv('kpi-installed', fmt(totInst));
+
+}
+
+
+
+// ═══════════ PERSIST — Google Sheets ═══════════
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxSM0EflIRzcz0SrAt4hVZG-I0dafSW6SJkKrcfX-WuEU-qQ2ZS3vP7pD_l0SJP7R3dpA/exec';
+
+const FIELDS = [
+  'cc-inbound-total','cc-inbound-qual','cc-inbound-booked',
+  'cc-outbound','cc-outbound-booked','cc-other-leads',
+  'cc-cancel-hvac','cc-cancel-plumb',
+  'mem-opp','mem-hvac','mem-plumb','mem-cc',
+  'rev-hvac','rev-plumb','rev-unknown','rev-calls',
+  'cb-ac5-today','cb-ac5-tom','cb-ac5-72',
+  'cb-ac59-today','cb-ac59-tom','cb-ac59-72',
+  'cb-ac10-today','cb-ac10-tom','cb-ac10-72',
+  'cb-warranty-today','cb-warranty-tom','cb-warranty-72',
+  'cb-repairs-today','cb-repairs-tom','cb-repairs-72',
+  'cb-hvac-techs-today','cb-hvac-techs-tom','cb-hvac-techs-72',
+  'cb-serv-today','cb-serv-tom','cb-serv-72',
+  'cb-pl-inst-today','cb-pl-inst-tom','cb-pl-inst-72',
+  'cb-pl-maint-today','cb-pl-maint-tom','cb-pl-maint-72',
+  'cb-pl-warranty-today','cb-pl-warranty-tom','cb-pl-warranty-72',
+  'cb-plumb-techs-today','cb-plumb-techs-tom','cb-plumb-techs-72',
+  'wx-high','wx-low',
+  's-hvac-10-ran','s-hvac-10-sold','s-hvac-10-rev',
+  's-hvac-59-ran','s-hvac-59-sold','s-hvac-59-rev',
+  's-hvac-14-ran','s-hvac-14-sold','s-hvac-14-rev',
+  's-hvac-est-ran','s-hvac-est-sold','s-hvac-est-rev','s-hvac-parts',
+  's-hvac-inst-completed','s-hvac-inst-sold',
+  's-pl-est-ran','s-pl-est-sold','s-pl-est-rev',
+  's-pl-svc-ran','s-pl-svc-sold','s-pl-svc-rev',
+  's-pl-maint-ran','s-pl-maint-sold','s-pl-maint-rev',
+  's-pl-inst-ran','s-pl-inst-sold','s-pl-inst-rev','s-pl-installed',
+  'reflect-right','reflect-learn','reflect-change'
+];
+
+// Human-readable column headers for the Google Sheet
+const HEADERS = [
+  'Date',
+  'CC Inbound Total','CC Inbound Qualified','CC Inbound Booked',
+  'CC Outbound Made','CC Outbound Booked','CC Other Leads Booked',
+  'Cancels HVAC','Cancels Plumbing',
+  'Membership Opp','Membership Sold HVAC','Membership Sold Plumbing','Membership Sold CC',
+  'Reviews HVAC','Reviews Plumbing','Reviews Unknown','Reviews Calls Ran',
+  'HVAC AC<5 Today','HVAC AC<5 Tom','HVAC AC<5 72hr',
+  'HVAC AC5-9 Today','HVAC AC5-9 Tom','HVAC AC5-9 72hr',
+  'HVAC AC10+ Today','HVAC AC10+ Tom','HVAC AC10+ 72hr',
+  'HVAC Warranty Today','HVAC Warranty Tom','HVAC Warranty 72hr',
+  'HVAC Repairs Today','HVAC Repairs Tom','HVAC Repairs 72hr',
+  'HVAC Techs Today','HVAC Techs Tom','HVAC Techs 72hr',
+  'Plumb Svc Today','Plumb Svc Tom','Plumb Svc 72hr',
+  'Plumb Install Today','Plumb Install Tom','Plumb Install 72hr',
+  'Plumb Maint Today','Plumb Maint Tom','Plumb Maint 72hr',
+  'Plumb Warranty Today','Plumb Warranty Tom','Plumb Warranty 72hr',
+  'Plumb Techs Today','Plumb Techs Tom','Plumb Techs 72hr',
+  'Weather High','Weather Low',
+  'HVAC 10+ Ran','HVAC 10+ Sold','HVAC 10+ Rev',
+  'HVAC 5-9 Ran','HVAC 5-9 Sold','HVAC 5-9 Rev',
+  'HVAC 1-4 Ran','HVAC 1-4 Sold','HVAC 1-4 Rev',
+  'HVAC Est Ran','HVAC Est Sold','HVAC Est Rev','HVAC Parts Rev',
+  'HVAC Install Completed','HVAC Install Sales',
+  'Plumb Est Ran','Plumb Est Sold','Plumb Est Rev',
+  'Plumb Svc Ran','Plumb Svc Sold','Plumb Svc Rev',
+  'Plumb Maint Ran','Plumb Maint Sold','Plumb Maint Rev',
+  'Plumb Install Ran','Plumb Install Sold','Plumb Install Rev','Plumb Installed Rev',
+  'Winning','Losing','Team Needs'
+];
+
+function saveEntry() {
+  const date = el('huddle-date').value;
+  const row = [date, ...FIELDS.map(id => (el(id)||{}).value || '')];
+
+  // Always save to localStorage as backup
+  const data = {};
+  FIELDS.forEach(id => { const e=el(id); if(e) data[id]=e.value; });
+  localStorage.setItem('huddle_'+date, JSON.stringify(data));
+
+  // Show saving state
+  showToast('Saving…', false);
+
+  const payload = { date, headers: HEADERS, row };
+  const url = SCRIPT_URL + '?action=save&data=' + encodeURIComponent(JSON.stringify(payload));
+
+  fetch(url, { redirect: 'follow' })
+    .then(r => r.json())
+    .then(res => {
+      if (res.status === 'saved' || res.status === 'updated') {
+        showToast('Saved to Google Sheets ✓');
+      } else {
+        showToast('Saved locally (Sheet error)');
+      }
+    })
+    .catch(() => showToast('Saved locally (offline)'));
+}
+
+function loadEntry() {
+  const date = el('huddle-date').value;
+  FIELDS.forEach(id => { const e=el(id); if(e) e.value=''; });
+
+  // Try Google Sheets first
+  const url = SCRIPT_URL + '?action=load&date=' + encodeURIComponent(date);
+  fetch(url, { redirect: 'follow' })
+    .then(r => r.json())
+    .then(res => {
+      if (res.status === 'found') {
+        // Map header names back to field IDs
+        FIELDS.forEach((id, i) => {
+          const header = HEADERS[i + 1]; // +1 to skip Date column
+          const e = el(id);
+          if (e && res.data[header] !== undefined) e.value = res.data[header];
+        });
+        showToast('Loaded from Google Sheets');
+      } else {
+        // Fall back to localStorage
+        loadFromLocal(date);
+      }
+      calcAll();
+    })
+    .catch(() => {
+      loadFromLocal(date);
+      calcAll();
+    });
+}
+
+function loadFromLocal(date) {
+  const raw = localStorage.getItem('huddle_' + date);
+  if (raw) {
+    const d = JSON.parse(raw);
+    FIELDS.forEach(id => { const e=el(id); if(e && d[id]!==undefined) e.value=d[id]; });
+    showToast('Loaded from local backup');
+  }
+}
+
+function exportCSV() {
+  // Build CSV from localStorage backup
+  const dates = Object.keys(localStorage)
+    .filter(k => k.startsWith('huddle_') && k !== 'huddle_log')
+    .map(k => k.replace('huddle_',''))
+    .sort();
+  if (!dates.length) { showToast('No local entries to export'); return; }
+  const rows = [HEADERS.join(',')];
+  dates.forEach(date => {
+    const raw = localStorage.getItem('huddle_' + date);
+    if (!raw) return;
+    const d = JSON.parse(raw);
+    rows.push([date, ...FIELDS.map(f => '"'+(d[f]||'').toString().replace(/"/g,"'")+'"')].join(','));
+  });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([rows.join('\n')],{type:'text/csv'}));
+  a.download = `can_do_crew_huddle_${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
+  showToast('CSV Exported!');
+}
+
+function showToast(msg, autoDismiss = true) {
+  const t = el('toast'); t.textContent = msg; t.classList.add('show');
+  if (autoDismiss) setTimeout(()=>t.classList.remove('show'), 2500);
+}
+
+function toggleSection(hd) {
+  hd.classList.toggle('collapsed');
+  const body = hd.nextElementSibling;
+  body.classList.toggle('hidden');
+}
+
+// ═══════════ INIT ═══════════
+window.addEventListener('DOMContentLoaded', () => {
+  el('today-date').textContent = new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
+  el('huddle-date').value = new Date().toISOString().split('T')[0];
+  document.querySelectorAll('.cb-table input').forEach(i => i.addEventListener('input', calcAll));
+  loadEntry();
+});
+</script>
+</body>
+</html>
