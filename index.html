@@ -243,8 +243,8 @@
 
 <!-- ═══════════════ KPI BANNER ═══════════════ -->
 <div class="kpi-banner">
-  <div class="kpi-item"><div class="kpi-label">Today Sold</div><div class="kpi-val" id="kpi-sold">$0</div></div>
-  <div class="kpi-item"><div class="kpi-label">Today Installed</div><div class="kpi-val grn" id="kpi-installed">$0</div></div>
+  <div class="kpi-item"><div class="kpi-label">Sold / Future</div><div class="kpi-val" id="kpi-sold">$0</div></div>
+  <div class="kpi-item"><div class="kpi-label">Completed Rev</div><div class="kpi-val grn" id="kpi-installed">$0</div></div>
   <div class="kpi-item"><div class="kpi-label">Total Booked</div><div class="kpi-val wht" id="kpi-total-booked">0</div></div>
   <div class="kpi-item"><div class="kpi-label">Booking Rate</div><div class="kpi-val" id="kpi-booking-rate">—</div></div>
   <div class="kpi-item"><div class="kpi-label">Cancel Rate</div><div class="kpi-val" id="kpi-cancel-rate">—</div></div>
@@ -493,10 +493,10 @@
   </div>
 </div>
 
-<!-- ═══════════════ SALES BY DEPARTMENT ═══════════════ -->
+<!-- ═══════════════ YESTERDAY'S SALES & COMPLETED REVENUE ═══════════════ -->
 <div class="section">
   <div class="section-hd open" onclick="toggleSection(this)">
-    <div class="section-label">💰 Sales by Department<span class="section-status" id="status-sales"></span></div>
+    <div class="section-label">💰 Yesterday's Sales & Completed Revenue<span class="section-status" id="status-sales"></span></div>
     <span class="toggle-ic">▾</span>
   </div>
   <div class="section-body">
@@ -505,27 +505,24 @@
       <!-- HVAC Service -->
       <div class="card">
         <div class="card-title">HVAC Service — Ran / Sold / Revenue</div>
-        <table style="width:100%;border-collapse:collapse;font-size:0.8rem;">
+        <table style="width:100%;border-collapse:collapse;font-size:0.88rem;">
           <thead>
             <tr style="border-bottom:1px solid var(--border);">
-              <th style="text-align:left;padding:0.3rem 0.4rem;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:600;">Tier</th>
-              <th style="padding:0.3rem 0.4rem;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:600;">Ran</th>
-              <th style="padding:0.3rem 0.4rem;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:600;">Sold</th>
-              <th style="padding:0.3rem 0.4rem;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:600;text-align:left;">Revenue $</th>
+              <th style="text-align:left;padding:0.3rem 0.4rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:700;">Tier</th>
+              <th style="padding:0.3rem 0.4rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:700;">Ran</th>
+              <th style="padding:0.3rem 0.4rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:700;">Sold</th>
+              <th style="padding:0.3rem 0.4rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:700;text-align:left;">Revenue $</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.78rem;">10+ Tier</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-hvac-10-ran" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-hvac-10-sold" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-hvac-10-rev" placeholder="0" oninput="calcAll()"></div></td></tr>
-            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.78rem;">5–9 Tier</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-hvac-59-ran" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-hvac-59-sold" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-hvac-59-rev" placeholder="0" oninput="calcAll()"></div></td></tr>
-            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.78rem;">1–4 Tier</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-hvac-14-ran" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-hvac-14-sold" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-hvac-14-rev" placeholder="0" oninput="calcAll()"></div></td></tr>
-            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.78rem;">Estimates</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-hvac-est-ran" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-hvac-est-sold" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-hvac-est-rev" placeholder="0" oninput="calcAll()"></div></td></tr>
-            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.78rem;">Parts Jobs</td><td colspan="2"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-hvac-parts" placeholder="0" oninput="calcAll()"></div></td></tr>
+            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">10+ Tier</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-hvac-10-ran" placeholder="0" style="max-width:85px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-hvac-10-sold" placeholder="0" style="max-width:85px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-hvac-10-rev" placeholder="0" oninput="calcAll()"></div></td></tr>
+            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">5–9 Tier</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-hvac-59-ran" placeholder="0" style="max-width:85px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-hvac-59-sold" placeholder="0" style="max-width:85px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-hvac-59-rev" placeholder="0" oninput="calcAll()"></div></td></tr>
+            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">1–4 Tier</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-hvac-14-ran" placeholder="0" style="max-width:85px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-hvac-14-sold" placeholder="0" style="max-width:85px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-hvac-14-rev" placeholder="0" oninput="calcAll()"></div></td></tr>
+            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">Parts Jobs</td><td colspan="2"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-hvac-parts" placeholder="0" oninput="calcAll()"></div></td></tr>
+            <tr style="border-top:1px solid var(--border);"><td style="padding:0.28rem 0.4rem;color:var(--orange);font-size:0.88rem;font-weight:600;">Estimates <span style="font-size:0.68rem;opacity:0.8;">(future)</span></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-hvac-est-ran" placeholder="0" style="max-width:85px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-hvac-est-sold" placeholder="0" style="max-width:85px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-hvac-est-rev" placeholder="0" oninput="calcAll()"></div></td></tr>
+            <tr><td style="padding:0.28rem 0.4rem;color:var(--orange);font-size:0.88rem;font-weight:600;">Future Revenue</td><td colspan="2"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-hvac-future" placeholder="0" oninput="calcAll()"></div></td></tr>
           </tbody>
         </table>
-        <div class="stat-block" style="margin-top:0.75rem;">
-          <div class="sb-label">HVAC Service Total</div>
-          <div class="sb-val orange" id="disp-hvac-svc-sold">$0</div>
-        </div>
       </div>
 
       <!-- HVAC Install -->
@@ -533,46 +530,38 @@
         <div class="card-title">HVAC Install</div>
         <div class="field-row"><span class="fl">Revenue Completed</span><div class="iw"><span class="pfx">$</span><input type="number" id="s-hvac-inst-completed" placeholder="0" oninput="calcAll()"></div></div>
         <div class="field-row"><span class="fl">Sales Made</span><div class="iw"><span class="pfx">$</span><input type="number" id="s-hvac-inst-sold" placeholder="0" oninput="calcAll()"></div></div>
-        <div class="stat-block" style="margin-top:0.75rem;">
-          <div class="sb-label">HVAC Install Total</div>
-          <div class="sb-val orange" id="disp-hvac-inst-total">$0</div>
-        </div>
       </div>
 
       <!-- Plumbing -->
       <div class="card">
         <div class="card-title">Plumbing Service — Ran / Sold / Revenue</div>
-        <table style="width:100%;border-collapse:collapse;font-size:0.8rem;">
+        <table style="width:100%;border-collapse:collapse;font-size:0.88rem;">
           <thead>
             <tr style="border-bottom:1px solid var(--border);">
-              <th style="text-align:left;padding:0.3rem 0.4rem;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:600;">Type</th>
-              <th style="padding:0.3rem 0.4rem;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:600;">Ran</th>
-              <th style="padding:0.3rem 0.4rem;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:600;">Sold</th>
-              <th style="padding:0.3rem 0.4rem;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:600;text-align:left;">Revenue $</th>
+              <th style="text-align:left;padding:0.3rem 0.4rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:700;">Type</th>
+              <th style="padding:0.3rem 0.4rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:700;">Ran</th>
+              <th style="padding:0.3rem 0.4rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:700;">Sold</th>
+              <th style="padding:0.3rem 0.4rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:700;text-align:left;">Revenue $</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.78rem;">Estimates</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-pl-est-ran" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-pl-est-sold" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-pl-est-rev" placeholder="0" oninput="calcAll()"></div></td></tr>
-            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.78rem;">Service</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-pl-svc-ran" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-pl-svc-sold" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-pl-svc-rev" placeholder="0" oninput="calcAll()"></div></td></tr>
-            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.78rem;">Maintenance</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-pl-maint-ran" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-pl-maint-sold" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-pl-maint-rev" placeholder="0" oninput="calcAll()"></div></td></tr>
-            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.78rem;">Installs</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-pl-inst-ran" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-pl-inst-sold" placeholder="0" style="max-width:60px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-pl-inst-rev" placeholder="0" oninput="calcAll()"></div></td></tr>
+            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">Service</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-pl-svc-ran" placeholder="0" style="max-width:85px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-pl-svc-sold" placeholder="0" style="max-width:85px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-pl-svc-rev" placeholder="0" oninput="calcAll()"></div></td></tr>
+            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">Maintenance</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-pl-maint-ran" placeholder="0" style="max-width:85px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-pl-maint-sold" placeholder="0" style="max-width:85px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-pl-maint-rev" placeholder="0" oninput="calcAll()"></div></td></tr>
+            <tr><td style="padding:0.28rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">Installs</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-pl-inst-ran" placeholder="0" style="max-width:85px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-pl-inst-sold" placeholder="0" style="max-width:85px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-pl-inst-rev" placeholder="0" oninput="calcAll()"></div></td></tr>
+            <tr style="border-top:1px solid var(--border);"><td style="padding:0.28rem 0.4rem;color:var(--orange);font-size:0.88rem;font-weight:600;">Estimates <span style="font-size:0.68rem;opacity:0.8;">(future)</span></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-pl-est-ran" placeholder="0" style="max-width:85px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="s-pl-est-sold" placeholder="0" style="max-width:85px;text-align:center;"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-pl-est-rev" placeholder="0" oninput="calcAll()"></div></td></tr>
+            <tr><td style="padding:0.28rem 0.4rem;color:var(--orange);font-size:0.88rem;font-weight:600;">Future Revenue</td><td colspan="2"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="s-pl-future" placeholder="0" oninput="calcAll()"></div></td></tr>
           </tbody>
         </table>
-        <hr class="divider">
-        <div class="field-row"><span class="fl">Installed Revenue</span><div class="iw"><span class="pfx">$</span><input type="number" id="s-pl-installed" placeholder="0" oninput="calcAll()"></div></div>
-        <div class="stat-block" style="margin-top:0.75rem;">
-          <div class="sb-label">Plumbing Service Total</div>
-          <div class="sb-val orange" id="disp-plumb-sold">$0</div>
-        </div>
       </div>
     </div>
 
     <!-- Totals row -->
-    <div class="g4">
-      <div class="metric-card"><div class="mc-label">HVAC Service</div><div class="mc-val orange" id="disp-hvac-sold">$0</div></div>
-      <div class="metric-card"><div class="mc-label">HVAC Install</div><div class="mc-val orange" id="disp-hvac-inst-total2">$0</div></div>
-      <div class="metric-card"><div class="mc-label">Total Sold</div><div class="mc-val orange" id="disp-total-sold">$0</div></div>
-      <div class="metric-card"><div class="mc-label">Total Installed</div><div class="mc-val green" id="disp-total-installed">$0</div></div>
+    <div class="g5">
+      <div class="metric-card"><div class="mc-label">HVAC Completed</div><div class="mc-val green" id="disp-hvac-completed">$0</div><div class="mc-sub">Tiers + Parts + Install Completed</div></div>
+      <div class="metric-card"><div class="mc-label">HVAC Sold</div><div class="mc-val orange" id="disp-hvac-sold-total">$0</div><div class="mc-sub">Estimates + Future + Install Sales</div></div>
+      <div class="metric-card"><div class="mc-label">Plumbing Completed</div><div class="mc-val green" id="disp-plumb-completed">$0</div><div class="mc-sub">Service + Maint + Installs</div></div>
+      <div class="metric-card"><div class="mc-label">Plumbing Sold</div><div class="mc-val orange" id="disp-plumb-sold-total">$0</div><div class="mc-sub">Estimates + Future</div></div>
+      <div class="metric-card"><div class="mc-label">Total Combo Revenue</div><div class="mc-val" id="disp-total-combo" style="color:var(--text);">$0</div><div class="mc-sub">Completed + Sold</div></div>
     </div>
   </div>
 </div>
@@ -597,34 +586,26 @@
           <thead>
             <tr style="border-bottom:1px solid var(--border);">
               <th style="text-align:left;padding:0.3rem 0.4rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:700;">Tier</th>
+              <th style="padding:0.3rem 0.4rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:700;">Jobs</th>
               <th style="padding:0.3rem 0.4rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:700;text-align:left;">Committed $</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td style="padding:0.3rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">10+ Tier</td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-hvac-10" placeholder="0" oninput="calcCommitments()"></div></td></tr>
-            <tr><td style="padding:0.3rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">5–9 Tier</td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-hvac-59" placeholder="0" oninput="calcCommitments()"></div></td></tr>
-            <tr><td style="padding:0.3rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">1–4 Tier</td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-hvac-14" placeholder="0" oninput="calcCommitments()"></div></td></tr>
-            <tr><td style="padding:0.3rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">Estimates</td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-hvac-est" placeholder="0" oninput="calcCommitments()"></div></td></tr>
-            <tr><td style="padding:0.3rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">Parts Jobs</td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-hvac-parts" placeholder="0" oninput="calcCommitments()"></div></td></tr>
+            <tr><td style="padding:0.3rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">10+ Tier</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="c-hvac-10-jobs" placeholder="0" style="max-width:85px;text-align:center;" oninput="calcCommitments()"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-hvac-10" placeholder="0" oninput="calcCommitments()"></div></td></tr>
+            <tr><td style="padding:0.3rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">5–9 Tier</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="c-hvac-59-jobs" placeholder="0" style="max-width:85px;text-align:center;" oninput="calcCommitments()"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-hvac-59" placeholder="0" oninput="calcCommitments()"></div></td></tr>
+            <tr><td style="padding:0.3rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">1–4 Tier</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="c-hvac-14-jobs" placeholder="0" style="max-width:85px;text-align:center;" oninput="calcCommitments()"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-hvac-14" placeholder="0" oninput="calcCommitments()"></div></td></tr>
+            <tr><td style="padding:0.3rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">Parts Jobs</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="c-hvac-parts-jobs" placeholder="0" style="max-width:85px;text-align:center;" oninput="calcCommitments()"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-hvac-parts" placeholder="0" oninput="calcCommitments()"></div></td></tr>
+            <tr style="border-top:1px solid var(--border);"><td style="padding:0.3rem 0.4rem;color:var(--orange);font-size:0.88rem;font-weight:600;">Estimates <span style="font-size:0.68rem;opacity:0.8;">(future)</span></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="c-hvac-est-jobs" placeholder="0" style="max-width:85px;text-align:center;" oninput="calcCommitments()"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-hvac-est" placeholder="0" oninput="calcCommitments()"></div></td></tr>
+            <tr><td style="padding:0.3rem 0.4rem;color:var(--orange);font-size:0.88rem;font-weight:600;">Future Revenue</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="c-hvac-future-jobs" placeholder="0" style="max-width:85px;text-align:center;" oninput="calcCommitments()"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-hvac-future" placeholder="0" oninput="calcCommitments()"></div></td></tr>
           </tbody>
         </table>
-        <hr class="divider">
-        <div class="field-row"><span class="fl">Revenue Completing</span><div class="iw"><span class="pfx">$</span><input type="number" id="c-hvac-completing" placeholder="0" oninput="calcCommitments()"></div></div>
-        <div class="stat-block" style="margin-top:0.75rem;">
-          <div class="sb-label">HVAC Service Commitment</div>
-          <div class="sb-val orange" id="disp-c-hvac-svc">$0</div>
-        </div>
       </div>
 
       <!-- HVAC Install Commitments -->
       <div class="card">
         <div class="card-title">HVAC Install — Committed Today</div>
+        <div class="field-row"><span class="fl">Jobs Completing</span><input type="number" id="c-hvac-inst-jobs" placeholder="0" style="max-width:100px;" oninput="calcCommitments()"></div>
         <div class="field-row"><span class="fl">Revenue Completing</span><div class="iw"><span class="pfx">$</span><input type="number" id="c-hvac-inst-completing" placeholder="0" oninput="calcCommitments()"></div></div>
-        <div class="field-row"><span class="fl">Sales Made</span><div class="iw"><span class="pfx">$</span><input type="number" id="c-hvac-inst-sales" placeholder="0" oninput="calcCommitments()"></div></div>
-        <div class="stat-block" style="margin-top:0.75rem;">
-          <div class="sb-label">HVAC Install Commitment</div>
-          <div class="sb-val orange" id="disp-c-hvac-inst">$0</div>
-        </div>
       </div>
 
       <!-- Plumbing Commitments -->
@@ -634,45 +615,30 @@
           <thead>
             <tr style="border-bottom:1px solid var(--border);">
               <th style="text-align:left;padding:0.3rem 0.4rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:700;">Type</th>
+              <th style="padding:0.3rem 0.4rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:700;">Jobs</th>
               <th style="padding:0.3rem 0.4rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:700;text-align:left;">Committed $</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td style="padding:0.3rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">Estimates</td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-pl-est" placeholder="0" oninput="calcCommitments()"></div></td></tr>
-            <tr><td style="padding:0.3rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">Service</td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-pl-svc" placeholder="0" oninput="calcCommitments()"></div></td></tr>
-            <tr><td style="padding:0.3rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">Maintenance</td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-pl-maint" placeholder="0" oninput="calcCommitments()"></div></td></tr>
-            <tr><td style="padding:0.3rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">Installs</td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-pl-inst" placeholder="0" oninput="calcCommitments()"></div></td></tr>
+            <tr><td style="padding:0.3rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">Service</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="c-pl-svc-jobs" placeholder="0" style="max-width:85px;text-align:center;" oninput="calcCommitments()"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-pl-svc" placeholder="0" oninput="calcCommitments()"></div></td></tr>
+            <tr><td style="padding:0.3rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">Maintenance</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="c-pl-maint-jobs" placeholder="0" style="max-width:85px;text-align:center;" oninput="calcCommitments()"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-pl-maint" placeholder="0" oninput="calcCommitments()"></div></td></tr>
+            <tr><td style="padding:0.3rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">Installs</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="c-pl-inst-jobs" placeholder="0" style="max-width:85px;text-align:center;" oninput="calcCommitments()"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-pl-inst" placeholder="0" oninput="calcCommitments()"></div></td></tr>
+            <tr style="border-top:1px solid var(--border);"><td style="padding:0.3rem 0.4rem;color:var(--orange);font-size:0.88rem;font-weight:600;">Estimates <span style="font-size:0.68rem;opacity:0.8;">(future)</span></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="c-pl-est-jobs" placeholder="0" style="max-width:85px;text-align:center;" oninput="calcCommitments()"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-pl-est" placeholder="0" oninput="calcCommitments()"></div></td></tr>
+            <tr><td style="padding:0.3rem 0.4rem;color:var(--orange);font-size:0.88rem;font-weight:600;">Future Revenue</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="c-pl-future-jobs" placeholder="0" style="max-width:85px;text-align:center;" oninput="calcCommitments()"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-pl-future" placeholder="0" oninput="calcCommitments()"></div></td></tr>
           </tbody>
         </table>
-        <hr class="divider">
-        <div class="field-row"><span class="fl">Revenue Completing</span><div class="iw"><span class="pfx">$</span><input type="number" id="c-pl-completing" placeholder="0" oninput="calcCommitments()"></div></div>
-        <div class="stat-block" style="margin-top:0.75rem;">
-          <div class="sb-label">Plumbing Commitment</div>
-          <div class="sb-val orange" id="disp-c-plumb">$0</div>
-        </div>
       </div>
 
     </div>
 
     <!-- Commitment totals -->
-    <div class="g4">
-      <div class="metric-card">
-        <div class="mc-label">HVAC Total Commitment</div>
-        <div class="mc-val orange" id="disp-c-hvac-total">$0</div>
-      </div>
-      <div class="metric-card">
-        <div class="mc-label">Plumbing Total Commitment</div>
-        <div class="mc-val orange" id="disp-c-plumb-total">$0</div>
-      </div>
-      <div class="metric-card">
-        <div class="mc-label">Team Commitment Today</div>
-        <div class="mc-val orange" id="disp-c-grand-total">$0</div>
-      </div>
-      <div class="metric-card">
-        <div class="mc-label">Total Rev Completing</div>
-        <div class="mc-val green" id="disp-c-completing-total">$0</div>
-        <div class="mc-sub">Install jobs finishing today</div>
-      </div>
+    <div class="g6">
+      <div class="metric-card"><div class="mc-label">HVAC Completing</div><div class="mc-val green" id="disp-c-hvac-completing">$0</div><div class="mc-sub">Tiers + Parts + Install</div></div>
+      <div class="metric-card"><div class="mc-label">HVAC Sold</div><div class="mc-val orange" id="disp-c-hvac-sold">$0</div><div class="mc-sub">Estimates + Future</div></div>
+      <div class="metric-card"><div class="mc-label">Plumbing Completing</div><div class="mc-val green" id="disp-c-plumb-completing">$0</div><div class="mc-sub">Service + Maint + Installs</div></div>
+      <div class="metric-card"><div class="mc-label">Plumbing Sold</div><div class="mc-val orange" id="disp-c-plumb-sold">$0</div><div class="mc-sub">Estimates + Future</div></div>
+      <div class="metric-card"><div class="mc-label">Total Jobs</div><div class="mc-val" id="disp-c-total-jobs" style="color:var(--text);">0</div><div class="mc-sub">All committed jobs today</div></div>
+      <div class="metric-card"><div class="mc-label">Team Commitment</div><div class="mc-val" id="disp-c-grand-total" style="color:var(--text);">$0</div><div class="mc-sub">Completing + Sold</div></div>
     </div>
 
   </div>
@@ -785,45 +751,37 @@ function calcAll() {
   sv('disp-rev-rate', revCalls>0 ? revRate.toFixed(1)+'%' : '—');
   bar('bar-rev', revRate, colorClass(revRate,50,25));
 
-  // Sales
-  const hvacSvcSold = n('s-hvac-10-rev')+n('s-hvac-59-rev')+n('s-hvac-14-rev')+n('s-hvac-est-rev')+n('s-hvac-parts');
-  const hvacInstTotal = n('s-hvac-inst-completed')+n('s-hvac-inst-sold');
-  const hvacSold = hvacSvcSold + hvacInstTotal;
-  const hvacInst = n('s-hvac-inst-completed');
-  const plSold   = n('s-pl-est-rev')+n('s-pl-svc-rev')+n('s-pl-maint-rev')+n('s-pl-inst-rev');
-  const plInst   = n('s-pl-installed');
-  const totSold  = hvacSold + plSold;
-  const totInst  = hvacInst + plInst;
+  // Sales — Completed vs Sold/Future
+  const hvacCompleted  = n('s-hvac-10-rev')+n('s-hvac-59-rev')+n('s-hvac-14-rev')+n('s-hvac-parts')+n('s-hvac-inst-completed');
+  const hvacSoldTotal  = n('s-hvac-est-rev')+n('s-hvac-future')+n('s-hvac-inst-sold');
+  const plumbCompleted = n('s-pl-svc-rev')+n('s-pl-maint-rev')+n('s-pl-inst-rev');
+  const plumbSoldTotal = n('s-pl-est-rev')+n('s-pl-future');
+  const totalCombo     = hvacCompleted + hvacSoldTotal + plumbCompleted + plumbSoldTotal;
 
-  sv('disp-hvac-svc-sold', fmt(hvacSvcSold));
-  sv('disp-hvac-inst-total', fmt(hvacInstTotal));
-  sv('disp-hvac-inst-total2', fmt(hvacInstTotal));
-  sv('disp-hvac-sold', fmt(hvacSvcSold));
-  sv('disp-plumb-sold', fmt(plSold));
-  sv('disp-total-sold', fmt(totSold));
-  sv('disp-total-installed', fmt(totInst));
-  sv('kpi-sold', fmt(totSold));
-  sv('kpi-installed', fmt(totInst));
+  sv('disp-hvac-completed', fmt(hvacCompleted));
+  sv('disp-hvac-sold-total', fmt(hvacSoldTotal));
+  sv('disp-plumb-completed', fmt(plumbCompleted));
+  sv('disp-plumb-sold-total', fmt(plumbSoldTotal));
+  sv('disp-total-combo', fmt(totalCombo));
+  sv('kpi-sold', fmt(hvacSoldTotal + plumbSoldTotal));
+  sv('kpi-installed', fmt(hvacCompleted + plumbCompleted));
 
 }
 
 function calcCommitments() {
-  const hvacSvc  = n('c-hvac-10')+n('c-hvac-59')+n('c-hvac-14')+n('c-hvac-est')+n('c-hvac-parts');
-  const hvacInst = n('c-hvac-inst-completing')+n('c-hvac-inst-sales');
-  const hvacTotal = hvacSvc + hvacInst;
-  const plumbSvc  = n('c-pl-est')+n('c-pl-svc')+n('c-pl-maint')+n('c-pl-inst');
-  const plumbComp = n('c-pl-completing');
-  const plumbTotal = plumbSvc + plumbComp;
-  const grandTotal = hvacTotal + plumbTotal;
-  const completing = n('c-hvac-completing')+n('c-hvac-inst-completing')+n('c-pl-completing');
+  const hvacCompleting  = n('c-hvac-10')+n('c-hvac-59')+n('c-hvac-14')+n('c-hvac-parts')+n('c-hvac-inst-completing');
+  const hvacSold        = n('c-hvac-est')+n('c-hvac-future');
+  const plumbCompleting = n('c-pl-svc')+n('c-pl-maint')+n('c-pl-inst');
+  const plumbSold       = n('c-pl-est')+n('c-pl-future');
+  const grandTotal      = hvacCompleting + hvacSold + plumbCompleting + plumbSold;
+  const totalJobs       = n('c-hvac-10-jobs')+n('c-hvac-59-jobs')+n('c-hvac-14-jobs')+n('c-hvac-parts-jobs')+n('c-hvac-est-jobs')+n('c-hvac-future-jobs')+n('c-hvac-inst-jobs')+n('c-pl-svc-jobs')+n('c-pl-maint-jobs')+n('c-pl-inst-jobs')+n('c-pl-est-jobs')+n('c-pl-future-jobs');
 
-  sv('disp-c-hvac-svc',        fmt(hvacSvc));
-  sv('disp-c-hvac-inst',       fmt(hvacInst));
-  sv('disp-c-hvac-total',      fmt(hvacTotal));
-  sv('disp-c-plumb',           fmt(plumbTotal));
-  sv('disp-c-plumb-total',     fmt(plumbTotal));
-  sv('disp-c-grand-total',     fmt(grandTotal));
-  sv('disp-c-completing-total',fmt(completing));
+  sv('disp-c-hvac-completing',  fmt(hvacCompleting));
+  sv('disp-c-hvac-sold',        fmt(hvacSold));
+  sv('disp-c-plumb-completing', fmt(plumbCompleting));
+  sv('disp-c-plumb-sold',       fmt(plumbSold));
+  sv('disp-c-grand-total',      fmt(grandTotal));
+  sv('disp-c-total-jobs',       totalJobs);
 }
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzgNFV9JjyadzPZGs7f6DSKI3AFJ-puC7FPN4FgtsfPHuWMjyqCyJt2z-Oo9ckamgjDLw/exec';
 
@@ -858,7 +816,10 @@ const FIELDS = [
   'reflect-right','reflect-learn','reflect-change',
   'c-hvac-10','c-hvac-59','c-hvac-14','c-hvac-est','c-hvac-parts','c-hvac-completing',
   'c-hvac-inst-completing','c-hvac-inst-sales',
-  'c-pl-est','c-pl-svc','c-pl-maint','c-pl-inst','c-pl-completing'
+  'c-pl-est','c-pl-svc','c-pl-maint','c-pl-inst','c-pl-completing',
+  's-hvac-future','s-pl-future',
+  'c-hvac-future','c-pl-future',
+  'c-hvac-10-jobs','c-hvac-59-jobs','c-hvac-14-jobs','c-hvac-parts-jobs','c-hvac-est-jobs','c-hvac-future-jobs','c-hvac-inst-jobs','c-pl-svc-jobs','c-pl-maint-jobs','c-pl-inst-jobs','c-pl-est-jobs','c-pl-future-jobs'
 ];
 
 const HEADERS = [
@@ -892,7 +853,10 @@ const HEADERS = [
   'Winning','Losing','Team Needs',
   'Commit HVAC 10+','Commit HVAC 5-9','Commit HVAC 1-4','Commit HVAC Est','Commit HVAC Parts','Commit HVAC Svc Completing',
   'Commit HVAC Inst Completing','Commit HVAC Inst Sales',
-  'Commit Plumb Est','Commit Plumb Svc','Commit Plumb Maint','Commit Plumb Inst','Commit Plumb Completing'
+  'Commit Plumb Est','Commit Plumb Svc','Commit Plumb Maint','Commit Plumb Inst','Commit Plumb Completing',
+  'HVAC Future Revenue','Plumb Future Revenue',
+  'Commit HVAC Future','Commit Plumb Future',
+  'Commit HVAC 10+ Jobs','Commit HVAC 5-9 Jobs','Commit HVAC 1-4 Jobs','Commit HVAC Parts Jobs','Commit HVAC Est Jobs','Commit HVAC Future Jobs','Commit HVAC Inst Jobs','Commit Plumb Svc Jobs','Commit Plumb Maint Jobs','Commit Plumb Inst Jobs','Commit Plumb Est Jobs','Commit Plumb Future Jobs'
 ];
 
 // ── Section definitions — each person owns their fields ──
@@ -929,7 +893,8 @@ const SECTIONS = {
     's-pl-est-ran','s-pl-est-sold','s-pl-est-rev',
     's-pl-svc-ran','s-pl-svc-sold','s-pl-svc-rev',
     's-pl-maint-ran','s-pl-maint-sold','s-pl-maint-rev',
-    's-pl-inst-ran','s-pl-inst-sold','s-pl-inst-rev','s-pl-installed'
+    's-pl-inst-ran','s-pl-inst-sold','s-pl-inst-rev','s-pl-installed',
+    's-hvac-future','s-pl-future'
   ],
   takeaways: [
     'reflect-right','reflect-learn','reflect-change'
@@ -937,7 +902,9 @@ const SECTIONS = {
   commitments: [
     'c-hvac-10','c-hvac-59','c-hvac-14','c-hvac-est','c-hvac-parts','c-hvac-completing',
     'c-hvac-inst-completing','c-hvac-inst-sales',
-    'c-pl-est','c-pl-svc','c-pl-maint','c-pl-inst','c-pl-completing'
+    'c-pl-est','c-pl-svc','c-pl-maint','c-pl-inst','c-pl-completing',
+    'c-hvac-future','c-pl-future',
+    'c-hvac-10-jobs','c-hvac-59-jobs','c-hvac-14-jobs','c-hvac-parts-jobs','c-hvac-est-jobs','c-hvac-future-jobs','c-hvac-inst-jobs','c-pl-svc-jobs','c-pl-maint-jobs','c-pl-inst-jobs','c-pl-est-jobs','c-pl-future-jobs'
   ]
 };
 
@@ -1107,7 +1074,8 @@ window.addEventListener('DOMContentLoaded', () => {
   // Wire commitment inputs to calcCommitments AND auto-save
   ['c-hvac-10','c-hvac-59','c-hvac-14','c-hvac-est','c-hvac-parts','c-hvac-completing',
    'c-hvac-inst-completing','c-hvac-inst-sales',
-   'c-pl-est','c-pl-svc','c-pl-maint','c-pl-inst','c-pl-completing'
+   'c-pl-est','c-pl-svc','c-pl-maint','c-pl-inst','c-pl-completing',
+   'c-hvac-future','c-pl-future'
   ].forEach(id => {
     const e = el(id);
     if (e) {
