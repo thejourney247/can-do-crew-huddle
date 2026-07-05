@@ -807,21 +807,23 @@ function calcAll() {
 
 // ═══════════ MARKETING — LEADS BY SOURCE ═══════════
 const MK_SOURCES = [
+  {key:'postcards', label:'Best Postcards'},
+  {key:'ott', label:'Broadcast/OTT'},
+  {key:'chiirp', label:'Chiirp'},
   {key:'direct', label:'Direct'},
+  {key:'email', label:'Email Marketing'},
   {key:'lsa-hvac', label:'Google LSA HVAC'},
   {key:'lsa-plumb', label:'Google LSA Plumbing'},
-  {key:'yelp', label:'Yelp'},
-  {key:'postcards', label:'Best Postcards'},
-  {key:'email', label:'Email Marketing'},
-  {key:'ott', label:'Broadcast/OTT'},
+  {key:'google-organic', label:'Google Organic'},
+  {key:'misc', label:'Miscellaneous'},
+  {key:'ppc-brand', label:'PPC — Brand'},
+  {key:'ppc-hvac', label:'PPC — HVAC'},
+  {key:'ppc-plumb', label:'PPC — Plumbing'},
+  {key:'referpro', label:'REFERPRO'},
+  {key:'social', label:'Social Media'},
   {key:'thumbtack', label:'Thumbtack'},
   {key:'website', label:'Website Direct'},
-  {key:'ppc-brand', label:'PPC — Brand'},
-  {key:'ppc-plumb', label:'PPC — Plumbing'},
-  {key:'ppc-hvac', label:'PPC — HVAC'},
-  {key:'social', label:'Social Media'},
-  {key:'chiirp', label:'Chiirp'},
-  {key:'misc', label:'Miscellaneous'}
+  {key:'yelp', label:'Yelp'}
 ];
 
 function buildMarketingTable() {
@@ -932,7 +934,8 @@ const FIELDS = [
   's-hvac-future','s-pl-future',
   'c-hvac-future','c-pl-future',
   'c-hvac-10-jobs','c-hvac-59-jobs','c-hvac-14-jobs','c-hvac-parts-jobs','c-hvac-est-jobs','c-hvac-future-jobs','c-hvac-inst-jobs','c-pl-svc-jobs','c-pl-maint-jobs','c-pl-inst-jobs','c-pl-est-jobs','c-pl-future-jobs',
-  'mk-direct-hvac','mk-direct-plumb','mk-direct-booked','mk-lsa-hvac-hvac','mk-lsa-hvac-plumb','mk-lsa-hvac-booked','mk-lsa-plumb-hvac','mk-lsa-plumb-plumb','mk-lsa-plumb-booked','mk-yelp-hvac','mk-yelp-plumb','mk-yelp-booked','mk-postcards-hvac','mk-postcards-plumb','mk-postcards-booked','mk-email-hvac','mk-email-plumb','mk-email-booked','mk-ott-hvac','mk-ott-plumb','mk-ott-booked','mk-thumbtack-hvac','mk-thumbtack-plumb','mk-thumbtack-booked','mk-website-hvac','mk-website-plumb','mk-website-booked','mk-ppc-brand-hvac','mk-ppc-brand-plumb','mk-ppc-brand-booked','mk-ppc-plumb-hvac','mk-ppc-plumb-plumb','mk-ppc-plumb-booked','mk-ppc-hvac-hvac','mk-ppc-hvac-plumb','mk-ppc-hvac-booked','mk-social-hvac','mk-social-plumb','mk-social-booked','mk-chiirp-hvac','mk-chiirp-plumb','mk-chiirp-booked','mk-misc-hvac','mk-misc-plumb','mk-misc-booked'
+  'mk-direct-hvac','mk-direct-plumb','mk-direct-booked','mk-lsa-hvac-hvac','mk-lsa-hvac-plumb','mk-lsa-hvac-booked','mk-lsa-plumb-hvac','mk-lsa-plumb-plumb','mk-lsa-plumb-booked','mk-yelp-hvac','mk-yelp-plumb','mk-yelp-booked','mk-postcards-hvac','mk-postcards-plumb','mk-postcards-booked','mk-email-hvac','mk-email-plumb','mk-email-booked','mk-ott-hvac','mk-ott-plumb','mk-ott-booked','mk-thumbtack-hvac','mk-thumbtack-plumb','mk-thumbtack-booked','mk-website-hvac','mk-website-plumb','mk-website-booked','mk-ppc-brand-hvac','mk-ppc-brand-plumb','mk-ppc-brand-booked','mk-ppc-plumb-hvac','mk-ppc-plumb-plumb','mk-ppc-plumb-booked','mk-ppc-hvac-hvac','mk-ppc-hvac-plumb','mk-ppc-hvac-booked','mk-social-hvac','mk-social-plumb','mk-social-booked','mk-chiirp-hvac','mk-chiirp-plumb','mk-chiirp-booked','mk-misc-hvac','mk-misc-plumb','mk-misc-booked',
+  'mk-google-organic-hvac','mk-google-organic-plumb','mk-google-organic-booked','mk-referpro-hvac','mk-referpro-plumb','mk-referpro-booked'
 ];
 
 const HEADERS = [
@@ -970,13 +973,15 @@ const HEADERS = [
   'HVAC Future Revenue','Plumb Future Revenue',
   'Commit HVAC Future','Commit Plumb Future',
   'Commit HVAC 10+ Jobs','Commit HVAC 5-9 Jobs','Commit HVAC 1-4 Jobs','Commit HVAC Parts Jobs','Commit HVAC Est Jobs','Commit HVAC Future Jobs','Commit HVAC Inst Jobs','Commit Plumb Svc Jobs','Commit Plumb Maint Jobs','Commit Plumb Inst Jobs','Commit Plumb Est Jobs','Commit Plumb Future Jobs',
-  'Mkt Direct HVAC','Mkt Direct Plumb','Mkt Direct Booked','Mkt Google LSA HVAC HVAC','Mkt Google LSA HVAC Plumb','Mkt Google LSA HVAC Booked','Mkt Google LSA Plumbing HVAC','Mkt Google LSA Plumbing Plumb','Mkt Google LSA Plumbing Booked','Mkt Yelp HVAC','Mkt Yelp Plumb','Mkt Yelp Booked','Mkt Best Postcards HVAC','Mkt Best Postcards Plumb','Mkt Best Postcards Booked','Mkt Email Marketing HVAC','Mkt Email Marketing Plumb','Mkt Email Marketing Booked','Mkt Broadcast/OTT HVAC','Mkt Broadcast/OTT Plumb','Mkt Broadcast/OTT Booked','Mkt Thumbtack HVAC','Mkt Thumbtack Plumb','Mkt Thumbtack Booked','Mkt Website Direct HVAC','Mkt Website Direct Plumb','Mkt Website Direct Booked','Mkt PPC - Brand HVAC','Mkt PPC - Brand Plumb','Mkt PPC - Brand Booked','Mkt PPC - Plumbing HVAC','Mkt PPC - Plumbing Plumb','Mkt PPC - Plumbing Booked','Mkt PPC - HVAC HVAC','Mkt PPC - HVAC Plumb','Mkt PPC - HVAC Booked','Mkt Social Media HVAC','Mkt Social Media Plumb','Mkt Social Media Booked','Mkt Chiirp HVAC','Mkt Chiirp Plumb','Mkt Chiirp Booked','Mkt Miscellaneous HVAC','Mkt Miscellaneous Plumb','Mkt Miscellaneous Booked'
+  'Mkt Direct HVAC','Mkt Direct Plumb','Mkt Direct Booked','Mkt Google LSA HVAC HVAC','Mkt Google LSA HVAC Plumb','Mkt Google LSA HVAC Booked','Mkt Google LSA Plumbing HVAC','Mkt Google LSA Plumbing Plumb','Mkt Google LSA Plumbing Booked','Mkt Yelp HVAC','Mkt Yelp Plumb','Mkt Yelp Booked','Mkt Best Postcards HVAC','Mkt Best Postcards Plumb','Mkt Best Postcards Booked','Mkt Email Marketing HVAC','Mkt Email Marketing Plumb','Mkt Email Marketing Booked','Mkt Broadcast/OTT HVAC','Mkt Broadcast/OTT Plumb','Mkt Broadcast/OTT Booked','Mkt Thumbtack HVAC','Mkt Thumbtack Plumb','Mkt Thumbtack Booked','Mkt Website Direct HVAC','Mkt Website Direct Plumb','Mkt Website Direct Booked','Mkt PPC - Brand HVAC','Mkt PPC - Brand Plumb','Mkt PPC - Brand Booked','Mkt PPC - Plumbing HVAC','Mkt PPC - Plumbing Plumb','Mkt PPC - Plumbing Booked','Mkt PPC - HVAC HVAC','Mkt PPC - HVAC Plumb','Mkt PPC - HVAC Booked','Mkt Social Media HVAC','Mkt Social Media Plumb','Mkt Social Media Booked','Mkt Chiirp HVAC','Mkt Chiirp Plumb','Mkt Chiirp Booked','Mkt Miscellaneous HVAC','Mkt Miscellaneous Plumb','Mkt Miscellaneous Booked',
+  'Mkt Google Organic HVAC','Mkt Google Organic Plumb','Mkt Google Organic Booked','Mkt REFERPRO HVAC','Mkt REFERPRO Plumb','Mkt REFERPRO Booked'
 ];
 
 // ── Section definitions — each person owns their fields ──
 const SECTIONS = {
   marketing: [
-    'mk-direct-hvac','mk-direct-plumb','mk-direct-booked','mk-lsa-hvac-hvac','mk-lsa-hvac-plumb','mk-lsa-hvac-booked','mk-lsa-plumb-hvac','mk-lsa-plumb-plumb','mk-lsa-plumb-booked','mk-yelp-hvac','mk-yelp-plumb','mk-yelp-booked','mk-postcards-hvac','mk-postcards-plumb','mk-postcards-booked','mk-email-hvac','mk-email-plumb','mk-email-booked','mk-ott-hvac','mk-ott-plumb','mk-ott-booked','mk-thumbtack-hvac','mk-thumbtack-plumb','mk-thumbtack-booked','mk-website-hvac','mk-website-plumb','mk-website-booked','mk-ppc-brand-hvac','mk-ppc-brand-plumb','mk-ppc-brand-booked','mk-ppc-plumb-hvac','mk-ppc-plumb-plumb','mk-ppc-plumb-booked','mk-ppc-hvac-hvac','mk-ppc-hvac-plumb','mk-ppc-hvac-booked','mk-social-hvac','mk-social-plumb','mk-social-booked','mk-chiirp-hvac','mk-chiirp-plumb','mk-chiirp-booked','mk-misc-hvac','mk-misc-plumb','mk-misc-booked'
+    'mk-direct-hvac','mk-direct-plumb','mk-direct-booked','mk-lsa-hvac-hvac','mk-lsa-hvac-plumb','mk-lsa-hvac-booked','mk-lsa-plumb-hvac','mk-lsa-plumb-plumb','mk-lsa-plumb-booked','mk-yelp-hvac','mk-yelp-plumb','mk-yelp-booked','mk-postcards-hvac','mk-postcards-plumb','mk-postcards-booked','mk-email-hvac','mk-email-plumb','mk-email-booked','mk-ott-hvac','mk-ott-plumb','mk-ott-booked','mk-thumbtack-hvac','mk-thumbtack-plumb','mk-thumbtack-booked','mk-website-hvac','mk-website-plumb','mk-website-booked','mk-ppc-brand-hvac','mk-ppc-brand-plumb','mk-ppc-brand-booked','mk-ppc-plumb-hvac','mk-ppc-plumb-plumb','mk-ppc-plumb-booked','mk-ppc-hvac-hvac','mk-ppc-hvac-plumb','mk-ppc-hvac-booked','mk-social-hvac','mk-social-plumb','mk-social-booked','mk-chiirp-hvac','mk-chiirp-plumb','mk-chiirp-booked','mk-misc-hvac','mk-misc-plumb','mk-misc-booked',
+    'mk-google-organic-hvac','mk-google-organic-plumb','mk-google-organic-booked','mk-referpro-hvac','mk-referpro-plumb','mk-referpro-booked'
   ],
   callcenter: [
     'cc-inbound-total','cc-inbound-qual','cc-inbound-booked',
