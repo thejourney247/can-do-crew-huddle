@@ -224,13 +224,53 @@
 
   @media (max-width: 1100px) { .g6 { grid-template-columns: repeat(3,1fr); } .g5 { grid-template-columns: repeat(3,1fr); } .g4 { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 700px) { .g2,.g3,.g4,.g5,.g6 { grid-template-columns: 1fr; } main { padding: 1rem; } header { height: auto; padding: 0.5rem 1rem; flex-wrap: wrap; } }
+
+  /* ── TABS & TECHNICIANS VIEW ── */
+  .tabs { display:flex; gap:0.35rem; }
+  .tab-btn { background:transparent; border:1.5px solid #444; color:#ccc; padding:0.4rem 1rem; border-radius:6px; font-family:'DM Sans',sans-serif; font-size:0.95rem; font-weight:700; cursor:pointer; }
+  .tab-btn:hover { border-color:var(--orange); color:var(--orange); }
+  .tab-btn.on { background:var(--orange); border-color:var(--orange); color:#fff; }
+  .t-bar { display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap; margin-bottom:1rem; }
+  .seg { display:flex; border:1.5px solid var(--border-strong); border-radius:8px; overflow:hidden; background:var(--surface); }
+  .seg button { border:none; background:transparent; padding:0.5rem 1.1rem; font-family:'DM Sans',sans-serif; font-size:0.95rem; font-weight:700; color:var(--muted); cursor:pointer; }
+  .seg button.on { background:var(--orange); color:#fff; }
+  .nav-btn { border:1.5px solid var(--border-strong); background:var(--surface); border-radius:8px; padding:0.45rem 0.85rem; font-size:1rem; font-weight:700; cursor:pointer; color:var(--text); }
+  .nav-btn:hover { border-color:var(--orange); color:var(--orange); }
+  .t-label { font-family:'DM Mono',monospace; font-size:1rem; font-weight:600; min-width:13rem; text-align:center; }
+  .t-kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:0.8rem; margin-bottom:1rem; }
+  .t-kpi { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:0.9rem 1.1rem; }
+  .t-kpi .l { font-size:0.8rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--muted); }
+  .t-kpi .v { font-family:'Bebas Neue',cursive; font-size:2.2rem; letter-spacing:0.03em; line-height:1.1; }
+  .t-kpi .v.o { color:var(--orange); } .t-kpi .v.g { color:var(--green); }
+  .t-card { background:var(--surface); border:1px solid var(--border); border-radius:10px; margin-bottom:1rem; overflow:hidden; }
+  .t-card h3 { font-family:'Bebas Neue',cursive; font-size:1.35rem; letter-spacing:0.08em; padding:0.7rem 1.1rem; border-bottom:1px solid var(--border); background:var(--surface2); display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap; }
+  .t-card h3 select { font-family:'DM Sans',sans-serif; font-size:0.9rem; padding:0.35rem 0.6rem; border:1px solid var(--border-strong); border-radius:6px; }
+  .t-wrap { overflow-x:auto; }
+  table.tt { width:100%; border-collapse:collapse; font-size:0.95rem; }
+  table.tt th { text-align:right; padding:0.6rem 0.8rem; font-size:0.78rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--muted); border-bottom:2px solid var(--border); white-space:nowrap; cursor:pointer; user-select:none; }
+  table.tt th:first-child, table.tt td:first-child { text-align:left; }
+  table.tt th.on { color:var(--orange); }
+  table.tt td { text-align:right; padding:0.55rem 0.8rem; border-bottom:1px solid var(--border); font-family:'DM Mono',monospace; white-space:nowrap; vertical-align:middle; }
+  table.tt td:first-child { font-family:'DM Sans',sans-serif; font-weight:700; }
+  table.tt td small { display:block; font-size:0.75rem; color:var(--muted); font-weight:400; }
+  table.tt td:first-child small { font-family:'DM Sans',sans-serif; }
+  table.tt tr.tot td { background:var(--surface2); font-weight:700; border-top:2px solid var(--border-strong); }
+  table.tt tr.oth td { color:var(--muted); font-style:italic; }
+  table.tt td.big { font-weight:700; color:var(--orange); }
+  .t-empty { padding:2rem 1rem; text-align:center; color:var(--muted); }
+  .hbar { display:inline-block; height:10px; background:var(--orange); border-radius:3px; vertical-align:middle; margin-left:0.5rem; }
+  @media (max-width: 700px) { .t-kpis { grid-template-columns:1fr 1fr; } .t-label { min-width:9rem; } .tabs { width:100%; } }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">Can Do <em>Crew</em> <span style="color:#555;font-size:1rem;margin-left:0.5rem;">Daily Huddle</span></div>
-  <div class="header-right">
+  <div class="logo">Can Do <em>Crew</em></div>
+  <div class="tabs">
+    <button class="tab-btn on" id="tab-huddle" onclick="showView('huddle')">Huddle</button>
+    <button class="tab-btn" id="tab-tech" onclick="showView('tech')">Technicians</button>
+  </div>
+  <div class="header-right" id="hdr-huddle">
     <input type="date" id="huddle-date">
     <button class="btn btn-ghost" onclick="loadEntry()">Load</button>
     <button class="btn btn-save" onclick="saveEntry()">💾 Save</button>
@@ -239,7 +279,7 @@
   </div>
 </header>
 
-<main>
+<main id="view-huddle">
 
 <!-- ═══════════════ KPI BANNER ═══════════════ -->
 <div class="kpi-banner">
@@ -597,6 +637,35 @@
   </div>
 </div>
 
+</main>
+
+<main id="view-tech" style="display:none">
+  <div class="t-bar">
+    <div class="seg" id="t-seg">
+      <button data-m="day" onclick="tSetMode('day')">Day</button>
+      <button data-m="week" class="on" onclick="tSetMode('week')">Week</button>
+      <button data-m="month" onclick="tSetMode('month')">Month</button>
+    </div>
+    <button class="nav-btn" onclick="tNav(-1)">◀</button>
+    <div class="t-label" id="t-label">—</div>
+    <button class="nav-btn" onclick="tNav(1)">▶</button>
+    <button class="nav-btn" onclick="tLoad(true)" title="Reload from Google Sheet">↻ Refresh</button>
+    <span id="t-status" style="color:var(--muted);font-size:0.9rem;"></span>
+  </div>
+  <div class="t-kpis">
+    <div class="t-kpi"><div class="l">Team Close Rate</div><div class="v o" id="tk-close">—</div></div>
+    <div class="t-kpi"><div class="l">Jobs Ran</div><div class="v" id="tk-jobs">0</div></div>
+    <div class="t-kpi"><div class="l">Sold $</div><div class="v" id="tk-sold">$0</div></div>
+    <div class="t-kpi"><div class="l">Combo $</div><div class="v g" id="tk-combo">$0</div></div>
+  </div>
+  <div class="t-card">
+    <h3>Technician Scorecard <span style="font-family:'DM Sans',sans-serif;font-size:0.8rem;letter-spacing:0;color:var(--muted);font-weight:400;">Close rate = jobs with a sale ÷ jobs run. Combo $ = completed $ + sales credited to the seller.</span></h3>
+    <div class="t-wrap"><table class="tt" id="t-table"></table></div>
+  </div>
+  <div class="t-card">
+    <h3>History <select id="t-sel" onchange="T.sel=this.value;tRenderHist()"></select></h3>
+    <div class="t-wrap"><table class="tt" id="t-hist"></table></div>
+  </div>
 </main>
 <div id="toast">✓ Saved!</div>
 
@@ -1014,6 +1083,114 @@ window.addEventListener('DOMContentLoaded', () => {
 
   loadEntry();
 });
+
+// ═══════════════ TECHNICIANS TAB ═══════════════
+const T = { mode:'week', anchor:null, rows:null, sel:'__team', sort:'combo', dir:-1, loading:false };
+function tpd(s){ const a=s.split('-').map(Number); return new Date(a[0],a[1]-1,a[2],12); }
+function tfd(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function tAdd(s,n){ const d=tpd(s); d.setDate(d.getDate()+n); return tfd(d); }
+function tWeekStart(s){ const d=tpd(s); d.setDate(d.getDate()-((d.getDay()+6)%7)); return tfd(d); }
+function tRange(mode,a){
+  if(mode==='day') return [a,a];
+  if(mode==='week'){ const w=tWeekStart(a); return [w,tAdd(w,6)]; }
+  const d=tpd(a); return [tfd(new Date(d.getFullYear(),d.getMonth(),1,12)), tfd(new Date(d.getFullYear(),d.getMonth()+1,0,12))];
+}
+const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function tPretty(s){ const d=tpd(s); return MON[d.getMonth()]+' '+d.getDate(); }
+function tLabel(){
+  const r=tRange(T.mode,T.anchor);
+  if(T.mode==='day'){ const d=tpd(T.anchor); return ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()]+' '+tPretty(T.anchor)+', '+d.getFullYear(); }
+  if(T.mode==='week') return tPretty(r[0])+' – '+tPretty(r[1])+', '+tpd(r[1]).getFullYear();
+  const d=tpd(T.anchor); return ['January','February','March','April','May','June','July','August','September','October','November','December'][d.getMonth()]+' '+d.getFullYear();
+}
+function tSetMode(m){ T.mode=m; document.querySelectorAll('#t-seg button').forEach(b=>b.classList.toggle('on',b.dataset.m===m)); tRender(); }
+function tNav(dir){ T.userNav=true;
+  if(T.mode==='day') T.anchor=tAdd(T.anchor,dir);
+  else if(T.mode==='week') T.anchor=tAdd(T.anchor,7*dir);
+  else { const d=tpd(T.anchor); d.setDate(1); d.setMonth(d.getMonth()+dir); T.anchor=tfd(d); }
+  tRender();
+}
+function showView(v){
+  document.getElementById('view-huddle').style.display = v==='huddle' ? '' : 'none';
+  document.getElementById('view-tech').style.display = v==='tech' ? '' : 'none';
+  document.getElementById('hdr-huddle').style.display = v==='huddle' ? '' : 'none';
+  document.getElementById('tab-huddle').classList.toggle('on', v==='huddle');
+  document.getElementById('tab-tech').classList.toggle('on', v==='tech');
+  if(v==='tech'){ if(!T.anchor){ const d=new Date(); d.setDate(d.getDate()-1); T.anchor=tfd(d); } if(!T.rows) tLoad(); else tRender(); }
+}
+async function tLoad(force){
+  if(T.loading) return; T.loading=true;
+  const st=document.getElementById('t-status'); st.textContent='Loading…';
+  try{
+    const to=new Date(); const from=new Date(); from.setDate(from.getDate()-400);
+    const r=await fetch(SCRIPT_URL+'?action=techs&from='+tfd(from)+'&to='+tfd(to));
+    const j=await r.json();
+    if(j.status!=='ok') throw new Error(j.message||'error');
+    T.rows=j.rows; st.textContent='';
+    if(!T.userNav && T.rows.length){ const last=T.rows.reduce((m,x)=>x[0]>m?x[0]:m,''); T.anchor=last; }
+  }catch(e){ st.textContent='Could not load: '+e.message+' — make sure the Apps Script is deployed as a new version.'; T.rows=T.rows||[]; }
+  T.loading=false; tRender();
+}
+function tAgg(rows){
+  const a={mran:0,msold:0,rran:0,rsold:0,eran:0,esold:0,warr:0,gb:0,comp:0,sold:0,combo:0};
+  rows.forEach(r=>{ a.mran+=+r[3]||0;a.msold+=+r[4]||0;a.rran+=+r[5]||0;a.rsold+=+r[6]||0;a.eran+=+r[7]||0;a.esold+=+r[8]||0;a.warr+=+r[9]||0;a.gb+=+r[10]||0;a.comp+=+r[11]||0;a.sold+=+r[12]||0;a.combo+=+r[13]||0; });
+  a.ran=a.mran+a.rran+a.eran; a.won=a.msold+a.rsold+a.esold; return a;
+}
+const tPct=(s,r)=> r>0 ? Math.round(s/r*100)+'%' : '—';
+const tMoney=n=>'$'+Math.round(n).toLocaleString();
+const tEsc=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function tCell(s,r){ return r>0 ? '<b>'+tPct(s,r)+'</b><small>'+s+' of '+r+'</small>' : '<span style="color:var(--muted)">—</span>'; }
+const OTHER='(Other sellers)';
+function tRender(){
+  document.getElementById('t-label').textContent=tLabel();
+  const rg=tRange(T.mode,T.anchor);
+  const rows=(T.rows||[]).filter(r=>r[0]>=rg[0]&&r[0]<=rg[1]);
+  const techRows=rows.filter(r=>r[1]!==OTHER), otherRows=rows.filter(r=>r[1]===OTHER);
+  const by={}; techRows.forEach(r=>{ (by[r[1]]=by[r[1]]||{team:r[2],rows:[]}).rows.push(r); });
+  let list=Object.keys(by).map(n=>Object.assign({name:n,team:by[n].team},tAgg(by[n].rows)));
+  list.forEach(x=>{ x.close=x.ran>0?x.won/x.ran:-1; x.mclose=x.mran?x.msold/x.mran:-1; x.rclose=x.rran?x.rsold/x.rran:-1; x.eclose=x.eran?x.esold/x.eran:-1; x.wg=x.warr+x.gb; });
+  const k=T.sort; list.sort((a,b)=> k==='name' ? T.dir*-1*a.name.localeCompare(b.name) : T.dir*((a[k]||0)-(b[k]||0)) );
+  const tot=tAgg(techRows), oth=tAgg(otherRows);
+  const grand=tot.combo+oth.combo;
+  document.getElementById('tk-close').textContent=tPct(tot.won,tot.ran);
+  document.getElementById('tk-jobs').textContent=tot.ran;
+  document.getElementById('tk-sold').textContent=tMoney(tot.sold+oth.sold);
+  document.getElementById('tk-combo').textContent=tMoney(grand);
+  const th=(key,label)=>'<th class="'+(T.sort===key?'on':'')+'" onclick="tSort(\''+key+'\')">'+label+(T.sort===key?(T.dir<0?' ▼':' ▲'):'')+'</th>';
+  let h='<tr>'+th('name','Technician')+th('close','Close %')+th('ran','Jobs Ran')+th('mclose','Maintenance')+th('rclose','Repair')+th('eclose','Estimates')+th('wg','Warr / Go-Back')+th('comp','Completed $')+th('sold','Sold $')+th('combo','Combo $')+'</tr>';
+  if(!list.length){ h+='<tr><td colspan="10" class="t-empty">No technician data for this period yet. Each morning the 6 AM sync posts the previous day\'s numbers.</td></tr>'; }
+  list.forEach(x=>{
+    h+='<tr><td>'+tEsc(x.name)+'<small>'+tEsc(x.team)+'</small></td><td>'+tCell(x.won,x.ran)+'</td><td>'+x.ran+'</td><td>'+tCell(x.msold,x.mran)+'</td><td>'+tCell(x.rsold,x.rran)+'</td><td>'+tCell(x.esold,x.eran)+'</td><td>'+x.warr+' / '+x.gb+'</td><td>'+tMoney(x.comp)+'</td><td>'+tMoney(x.sold)+'</td><td class="big">'+tMoney(x.combo)+'</td></tr>';
+  });
+  if(list.length){
+    h+='<tr class="tot"><td>Team total</td><td>'+tCell(tot.won,tot.ran)+'</td><td>'+tot.ran+'</td><td>'+tCell(tot.msold,tot.mran)+'</td><td>'+tCell(tot.rsold,tot.rran)+'</td><td>'+tCell(tot.esold,tot.eran)+'</td><td>'+tot.warr+' / '+tot.gb+'</td><td>'+tMoney(tot.comp)+'</td><td>'+tMoney(tot.sold)+'</td><td>'+tMoney(tot.combo)+'</td></tr>';
+    if(oth.sold>0) h+='<tr class="oth"><td>Sold by install / other staff<small>credited to the seller, not on the roster</small></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>'+tMoney(oth.sold)+'</td><td>'+tMoney(oth.combo)+'</td></tr>';
+    h+='<tr class="tot"><td>Grand total</td><td colspan="7"></td><td>'+tMoney(tot.sold+oth.sold)+'</td><td>'+tMoney(grand)+'</td></tr>';
+  }
+  document.getElementById('t-table').innerHTML=h;
+  // history dropdown
+  const sel=document.getElementById('t-sel');
+  const names=[...new Set((T.rows||[]).filter(r=>r[1]!==OTHER).map(r=>r[1]))].sort();
+  sel.innerHTML='<option value="__team">Whole team</option>'+names.map(n=>'<option value="'+tEsc(n)+'"'+(T.sel===n?' selected':'')+'>'+tEsc(n)+'</option>').join('');
+  sel.value = names.includes(T.sel)||T.sel==='__team' ? T.sel : '__team';
+  tRenderHist();
+}
+function tSort(k){ if(T.sort===k) T.dir*=-1; else { T.sort=k; T.dir=k==='name'?-1:-1; } tRender(); }
+function tBucket(d){ if(T.mode==='day') return d; if(T.mode==='week') return tWeekStart(d); return d.slice(0,7); }
+function tRenderHist(){
+  const all=(T.rows||[]).filter(r=> T.sel==='__team' ? r[1]!==OTHER : r[1]===T.sel);
+  const g={}; all.forEach(r=>{ (g[tBucket(r[0])]=g[tBucket(r[0])]||[]).push(r); });
+  const keys=Object.keys(g).sort().reverse().slice(0, T.mode==='day'?14:T.mode==='week'?12:12);
+  // combo incl. other sellers for the team view
+  const othBy={}; if(T.sel==='__team') (T.rows||[]).filter(r=>r[1]===OTHER).forEach(r=>{ const b=tBucket(r[0]); othBy[b]=(othBy[b]||0)+(+r[13]||0); });
+  const data=keys.map(k=>{ const a=tAgg(g[k]); a.combo+=othBy[k]||0; a.key=k; return a; });
+  const max=Math.max(1,...data.map(a=>a.combo));
+  const lab=k=> T.mode==='month' ? MON[+k.slice(5,7)-1]+' '+k.slice(0,4) : T.mode==='week' ? 'Wk of '+tPretty(k) : tPretty(k);
+  let h='<tr><th>'+(T.mode==='day'?'Day':T.mode==='week'?'Week':'Month')+'</th><th>Close %</th><th>Jobs Ran</th><th>Maint %</th><th>Repair %</th><th>Est %</th><th>Completed $</th><th>Combo $</th></tr>';
+  if(!data.length) h+='<tr><td colspan="8" class="t-empty">History builds up one day at a time, starting with the first morning sync.</td></tr>';
+  data.forEach(a=>{ h+='<tr><td>'+lab(a.key)+'</td><td><b>'+tPct(a.won,a.ran)+'</b></td><td>'+a.ran+'</td><td>'+tPct(a.msold,a.mran)+'</td><td>'+tPct(a.rsold,a.rran)+'</td><td>'+tPct(a.esold,a.eran)+'</td><td>'+tMoney(a.comp)+'</td><td>'+tMoney(a.combo)+'<span class="hbar" style="width:'+Math.round(a.combo/max*90)+'px"></span></td></tr>'; });
+  document.getElementById('t-hist').innerHTML=h;
+}
 </script>
 </body>
 </html>
