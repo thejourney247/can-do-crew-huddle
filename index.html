@@ -265,42 +265,6 @@
   </div>
 </div>
 
-<!-- ═══════════════ MARKETING — LEADS BY SOURCE ═══════════════ -->
-<div class="section">
-  <div class="section-hd open" onclick="toggleSection(this)">
-    <div class="section-label">📣 Marketing — Leads by Source<span class="section-status" id="status-marketing"></span></div>
-    <span class="toggle-ic">▾</span>
-  </div>
-  <div class="section-body">
-    <div class="card" style="margin-bottom:1rem;">
-      <table class="cb-table" id="mk-table">
-        <thead>
-          <tr>
-            <th class="left">Source</th>
-            <th>HVAC Leads</th>
-            <th>Plumbing Leads</th>
-            <th>Total Delivered</th>
-            <th>Booked</th>
-            <th>Booking %</th>
-          </tr>
-        </thead>
-        <tbody id="mk-tbody"></tbody>
-      </table>
-    </div>
-    <div class="g5">
-      <div class="metric-card"><div class="mc-label">Total Leads Delivered</div><div class="mc-val" id="disp-mk-total" style="color:var(--text);">0</div></div>
-      <div class="metric-card"><div class="mc-label">HVAC Leads</div><div class="mc-val orange" id="disp-mk-hvac">0</div></div>
-      <div class="metric-card"><div class="mc-label">Plumbing Leads</div><div class="mc-val orange" id="disp-mk-plumb">0</div></div>
-      <div class="metric-card"><div class="mc-label">Total Booked</div><div class="mc-val green" id="disp-mk-booked">0</div></div>
-      <div class="metric-card">
-        <div class="mc-label">Lead-to-Book %</div>
-        <div class="mc-val" id="disp-mk-rate">—</div>
-        <div class="mc-bar-bg"><div class="mc-bar-fill green" id="bar-mk-rate" style="width:0%"></div></div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- ═══════════════ CALL CENTER MANAGER ═══════════════ -->
 <div class="section">
   <div class="section-hd open" onclick="toggleSection(this)">
@@ -805,84 +769,6 @@ function calcAll() {
 }
 
 
-// ═══════════ MARKETING — LEADS BY SOURCE ═══════════
-const MK_SOURCES = [
-  {key:'postcards', label:'Best Postcards'},
-  {key:'ott', label:'Broadcast/OTT'},
-  {key:'chiirp', label:'Chiirp'},
-  {key:'costco', label:'Costco'},
-  {key:'direct', label:'Direct'},
-  {key:'email', label:'Email Marketing'},
-  {key:'lsa-hvac', label:'Google LSA HVAC'},
-  {key:'lsa-plumb', label:'Google LSA Plumbing'},
-  {key:'google-organic', label:'Google Organic'},
-  {key:'misc', label:'Miscellaneous'},
-  {key:'ppc-brand', label:'PPC — Brand'},
-  {key:'ppc-hvac', label:'PPC — HVAC'},
-  {key:'ppc-plumb', label:'PPC — Plumbing'},
-  {key:'referpro', label:'REFERPRO'},
-  {key:'social', label:'Social Media'},
-  {key:'thumbtack', label:'Thumbtack'},
-  {key:'website', label:'Website Direct'},
-  {key:'yelp', label:'Yelp'}
-];
-
-function buildMarketingTable() {
-  const tbody = el('mk-tbody');
-  if (!tbody) return;
-  tbody.innerHTML = MK_SOURCES.map(s => `
-    <tr>
-      <td class="left">${s.label}</td>
-      <td><input type="number" id="mk-${s.key}-hvac" min="0" placeholder="0" oninput="calcMarketing()"></td>
-      <td><input type="number" id="mk-${s.key}-plumb" min="0" placeholder="0" oninput="calcMarketing()"></td>
-      <td><span class="cb-total" id="mk-${s.key}-total" style="color:var(--text);">0</span></td>
-      <td><input type="number" id="mk-${s.key}-booked" min="0" placeholder="0" oninput="calcMarketing()"></td>
-      <td><span class="cb-total" id="mk-${s.key}-rate">—</span></td>
-    </tr>`).join('') + `
-    <tr>
-      <td class="left" style="color:var(--orange);">Total</td>
-      <td><span class="cb-total" id="mk-col-hvac">0</span></td>
-      <td><span class="cb-total" id="mk-col-plumb">0</span></td>
-      <td><span class="cb-total" id="mk-col-total" style="color:var(--text);">0</span></td>
-      <td><span class="cb-total" id="mk-col-booked">0</span></td>
-      <td><span class="cb-total" id="mk-col-rate">—</span></td>
-    </tr>`;
-}
-
-function calcMarketing() {
-  let tH = 0, tP = 0, tB = 0;
-  MK_SOURCES.forEach(s => {
-    const h = n('mk-' + s.key + '-hvac');
-    const p = n('mk-' + s.key + '-plumb');
-    const b = n('mk-' + s.key + '-booked');
-    const tot = h + p;
-    tH += h; tP += p; tB += b;
-    sv('mk-' + s.key + '-total', tot);
-    const rateEl = el('mk-' + s.key + '-rate');
-    if (rateEl) {
-      if (tot > 0) {
-        const r = b / tot * 100;
-        rateEl.textContent = r.toFixed(0) + '%';
-        rateEl.style.color = r >= 80 ? 'var(--green)' : r >= 50 ? 'var(--yellow)' : 'var(--red)';
-      } else {
-        rateEl.textContent = '—';
-        rateEl.style.color = 'var(--muted)';
-      }
-    }
-  });
-  const tTot = tH + tP;
-  sv('mk-col-hvac', tH); sv('mk-col-plumb', tP);
-  sv('mk-col-total', tTot); sv('mk-col-booked', tB);
-  const colRate = el('mk-col-rate');
-  if (colRate) colRate.textContent = tTot > 0 ? (tB / tTot * 100).toFixed(0) + '%' : '—';
-  sv('disp-mk-total', tTot); sv('disp-mk-hvac', tH);
-  sv('disp-mk-plumb', tP);  sv('disp-mk-booked', tB);
-  const rate = tTot > 0 ? tB / tTot * 100 : 0;
-  sv('disp-mk-rate', tTot > 0 ? rate.toFixed(1) + '%' : '—');
-  const bar = el('bar-mk-rate');
-  if (bar) bar.style.width = Math.min(rate, 100) + '%';
-}
-
 function calcCommitments() {
   const hvacCompleting  = n('c-hvac-10')+n('c-hvac-59')+n('c-hvac-14')+n('c-hvac-parts')+n('c-hvac-inst-completing');
   const hvacSold        = n('c-hvac-est')+n('c-hvac-future');
@@ -982,11 +868,6 @@ const HEADERS = [
 
 // ── Section definitions — each person owns their fields ──
 const SECTIONS = {
-  marketing: [
-    'mk-direct-hvac','mk-direct-plumb','mk-direct-booked','mk-lsa-hvac-hvac','mk-lsa-hvac-plumb','mk-lsa-hvac-booked','mk-lsa-plumb-hvac','mk-lsa-plumb-plumb','mk-lsa-plumb-booked','mk-yelp-hvac','mk-yelp-plumb','mk-yelp-booked','mk-postcards-hvac','mk-postcards-plumb','mk-postcards-booked','mk-email-hvac','mk-email-plumb','mk-email-booked','mk-ott-hvac','mk-ott-plumb','mk-ott-booked','mk-thumbtack-hvac','mk-thumbtack-plumb','mk-thumbtack-booked','mk-website-hvac','mk-website-plumb','mk-website-booked','mk-ppc-brand-hvac','mk-ppc-brand-plumb','mk-ppc-brand-booked','mk-ppc-plumb-hvac','mk-ppc-plumb-plumb','mk-ppc-plumb-booked','mk-ppc-hvac-hvac','mk-ppc-hvac-plumb','mk-ppc-hvac-booked','mk-social-hvac','mk-social-plumb','mk-social-booked','mk-chiirp-hvac','mk-chiirp-plumb','mk-chiirp-booked','mk-misc-hvac','mk-misc-plumb','mk-misc-booked',
-    'mk-google-organic-hvac','mk-google-organic-plumb','mk-google-organic-booked','mk-referpro-hvac','mk-referpro-plumb','mk-referpro-booked',
-    'mk-costco-hvac','mk-costco-plumb','mk-costco-booked'
-  ],
   callcenter: [
     'cc-inbound-total','cc-inbound-qual','cc-inbound-booked',
     'cc-outbound','cc-outbound-booked','cc-other-leads',
@@ -1121,9 +1002,8 @@ function loadEntry() {
       }
       calcAll();
       calcCommitments();
-      calcMarketing();
     })
-    .catch(() => { loadFromLocal(date); calcAll(); calcCommitments(); calcMarketing(); });
+    .catch(() => { loadFromLocal(date); calcAll(); calcCommitments(); });
 }
 
 function loadFromLocal(date) {
@@ -1195,7 +1075,6 @@ function toggleSection(hd) {
 
 // ═══════════ INIT ═══════════
 window.addEventListener('DOMContentLoaded', () => {
-  buildMarketingTable();
   el('today-date').textContent = new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
   el('huddle-date').value = new Date().toISOString().split('T')[0];
   document.querySelectorAll('.cb-table input').forEach(i => i.addEventListener('input', calcAll));
