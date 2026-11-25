@@ -912,6 +912,10 @@ const SECTIONS = {
   ]
 };
 
+// Last value known to be in the Google Sheet for each field (set on load and after each save)
+const baseline = {};
+function snapBaseline() { FIELDS.forEach(id => { const e = el(id); if (e) baseline[id] = e.value; }); }
+
 // Auto-save debounce timers per section
 const autoSaveTimers = {};
 
@@ -928,12 +932,18 @@ function patchSection(sectionKey, silent = false) {
   const fieldIds = SECTIONS[sectionKey];
 
   // Build a column→value map for only this section's fields
+  // Only send fields the person actually changed since the last load/save, so the
+  // 6 AM automatic fill (job counts, sales) is never overwritten by a stale page.
   const patch = {};
+  const sentIds = [];
   fieldIds.forEach(id => {
-    const header = HEADERS[FIELDS.indexOf(id) + 1]; // +1 to skip Date col
     const e = el(id);
-    patch[header] = e ? e.value : '';
+    if (!e) return;
+    if (baseline[id] === undefined ? e.value === '' : e.value === baseline[id]) return;
+    patch[HEADERS[FIELDS.indexOf(id) + 1]] = e.value; // +1 to skip Date col
+    sentIds.push(id);
   });
+  if (!sentIds.length) { if (!silent) showSectionStatus(sectionKey, 'saved'); return; }
 
   // Save to localStorage too
   const local = JSON.parse(localStorage.getItem('huddle_' + date) || '{}');
@@ -949,6 +959,7 @@ function patchSection(sectionKey, silent = false) {
     .then(r => r.json())
     .then(res => {
       if (res.status === 'patched' || res.status === 'saved' || res.status === 'updated') {
+        sentIds.forEach(id => { baseline[id] = el(id).value; });
         if (!silent) showSectionStatus(sectionKey, 'saved');
       } else {
         if (!silent) showSectionStatus(sectionKey, 'error');
@@ -994,12 +1005,14 @@ function loadEntry() {
           }
         });
         showToast('Loaded from Google Sheets ✓');
+        snapBaseline();
       } else {
         loadFromLocal(date);
+        FIELDS.forEach(id => { delete baseline[id]; });  // nothing in the Sheet yet: send everything typed
       }
       calcAll();
     })
-    .catch(() => { loadFromLocal(date); calcAll(); });
+    .catch(() => { loadFromLocal(date); FIELDS.forEach(id => { delete baseline[id]; }); calcAll(); });
 }
 
 function loadFromLocal(date) {
