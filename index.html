@@ -509,95 +509,6 @@
   </div>
 </div>
 
-<!-- ═══════════════ TODAY'S COMMITMENTS ═══════════════ -->
-<div class="section">
-  <div class="section-hd open" onclick="toggleSection(this)">
-    <div class="section-label">🎯 Today's Commitments<span class="section-status" id="status-commitments"></span></div>
-    <span class="toggle-ic">▾</span>
-  </div>
-  <div class="section-body">
-    <div class="g3" style="margin-bottom:1rem;">
-
-      <!-- HVAC Service Commitments -->
-      <div class="card">
-        <div class="card-title">HVAC Service — Committed Today</div>
-        <table style="width:100%;border-collapse:collapse;font-size:0.88rem;">
-          <thead>
-            <tr style="border-bottom:1px solid var(--border);">
-              <th style="text-align:left;padding:0.3rem 0.4rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:700;">Tier</th>
-              <th style="padding:0.3rem 0.4rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:700;">Jobs</th>
-              <th style="padding:0.3rem 0.4rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:700;text-align:left;">Committed $</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td style="padding:0.3rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">10+ Tier</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="c-hvac-10-jobs" placeholder="0" style="max-width:85px;text-align:center;" oninput="calcCommitments()"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-hvac-10" placeholder="0" oninput="calcCommitments()"></div></td></tr>
-            <tr><td style="padding:0.3rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">5–9 Tier</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="c-hvac-59-jobs" placeholder="0" style="max-width:85px;text-align:center;" oninput="calcCommitments()"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-hvac-59" placeholder="0" oninput="calcCommitments()"></div></td></tr>
-            <tr><td style="padding:0.3rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">1–4 Tier</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="c-hvac-14-jobs" placeholder="0" style="max-width:85px;text-align:center;" oninput="calcCommitments()"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-hvac-14" placeholder="0" oninput="calcCommitments()"></div></td></tr>
-            <tr><td style="padding:0.3rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">Parts Jobs</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="c-hvac-parts-jobs" placeholder="0" style="max-width:85px;text-align:center;" oninput="calcCommitments()"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-hvac-parts" placeholder="0" oninput="calcCommitments()"></div></td></tr>
-            <tr style="border-top:1px solid var(--border);"><td style="padding:0.3rem 0.4rem;color:var(--orange);font-size:0.88rem;font-weight:600;">Estimates <span style="font-size:0.68rem;opacity:0.8;">(future)</span></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="c-hvac-est-jobs" placeholder="0" style="max-width:85px;text-align:center;" oninput="calcCommitments()"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-hvac-est" placeholder="0" oninput="calcCommitments()"></div></td></tr>
-            <tr><td style="padding:0.3rem 0.4rem;color:var(--orange);font-size:0.88rem;font-weight:600;">Future Revenue</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="c-hvac-future-jobs" placeholder="0" style="max-width:85px;text-align:center;" oninput="calcCommitments()"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-hvac-future" placeholder="0" oninput="calcCommitments()"></div></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- HVAC Install Commitments -->
-      <div class="card">
-        <div class="card-title">HVAC Install — Committed Today</div>
-        <div class="field-row"><span class="fl">Jobs Completing</span><input type="number" id="c-hvac-inst-jobs" placeholder="0" style="max-width:100px;" oninput="calcCommitments()"></div>
-        <div class="field-row"><span class="fl">Revenue Completing</span><div class="iw"><span class="pfx">$</span><input type="number" id="c-hvac-inst-completing" placeholder="0" oninput="calcCommitments()"></div></div>
-      </div>
-
-      <!-- Plumbing Commitments -->
-      <div class="card">
-        <div class="card-title">Plumbing — Committed Today</div>
-        <table style="width:100%;border-collapse:collapse;font-size:0.88rem;">
-          <thead>
-            <tr style="border-bottom:1px solid var(--border);">
-              <th style="text-align:left;padding:0.3rem 0.4rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:700;">Type</th>
-              <th style="padding:0.3rem 0.4rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:700;">Jobs</th>
-              <th style="padding:0.3rem 0.4rem;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);font-weight:700;text-align:left;">Committed $</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td style="padding:0.3rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">Service</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="c-pl-svc-jobs" placeholder="0" style="max-width:85px;text-align:center;" oninput="calcCommitments()"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-pl-svc" placeholder="0" oninput="calcCommitments()"></div></td></tr>
-            <tr><td style="padding:0.3rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">Maintenance</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="c-pl-maint-jobs" placeholder="0" style="max-width:85px;text-align:center;" oninput="calcCommitments()"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-pl-maint" placeholder="0" oninput="calcCommitments()"></div></td></tr>
-            <tr><td style="padding:0.3rem 0.4rem;color:var(--muted);font-size:0.88rem;font-weight:600;">Installs</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="c-pl-inst-jobs" placeholder="0" style="max-width:85px;text-align:center;" oninput="calcCommitments()"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-pl-inst" placeholder="0" oninput="calcCommitments()"></div></td></tr>
-            <tr style="border-top:1px solid var(--border);"><td style="padding:0.3rem 0.4rem;color:var(--orange);font-size:0.88rem;font-weight:600;">Estimates <span style="font-size:0.68rem;opacity:0.8;">(future)</span></td><td style="padding:0.28rem 0.4rem;"><input type="number" id="c-pl-est-jobs" placeholder="0" style="max-width:85px;text-align:center;" oninput="calcCommitments()"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-pl-est" placeholder="0" oninput="calcCommitments()"></div></td></tr>
-            <tr><td style="padding:0.3rem 0.4rem;color:var(--orange);font-size:0.88rem;font-weight:600;">Future Revenue</td><td style="padding:0.28rem 0.4rem;"><input type="number" id="c-pl-future-jobs" placeholder="0" style="max-width:85px;text-align:center;" oninput="calcCommitments()"></td><td style="padding:0.28rem 0.4rem;"><div class="iw"><span class="pfx">$</span><input type="number" id="c-pl-future" placeholder="0" oninput="calcCommitments()"></div></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-    </div>
-
-    <!-- Commitment totals -->
-    <div class="g6">
-      <div class="metric-card"><div class="mc-label">HVAC Completing</div><div class="mc-val green" id="disp-c-hvac-completing">$0</div><div class="mc-sub">Tiers + Parts + Install</div></div>
-      <div class="metric-card"><div class="mc-label">HVAC Sold</div><div class="mc-val orange" id="disp-c-hvac-sold">$0</div><div class="mc-sub">Estimates + Future</div></div>
-      <div class="metric-card"><div class="mc-label">Plumbing Completing</div><div class="mc-val green" id="disp-c-plumb-completing">$0</div><div class="mc-sub">Service + Maint + Installs</div></div>
-      <div class="metric-card"><div class="mc-label">Plumbing Sold</div><div class="mc-val orange" id="disp-c-plumb-sold">$0</div><div class="mc-sub">Estimates + Future</div></div>
-      <div class="metric-card"><div class="mc-label">Total Jobs</div><div class="mc-val" id="disp-c-total-jobs" style="color:var(--text);">0</div><div class="mc-sub">All committed jobs today</div></div>
-      <div class="metric-card"><div class="mc-label">Team Commitment</div><div class="mc-val" id="disp-c-grand-total" style="color:var(--text);">$0</div><div class="mc-sub">Completing + Sold</div></div>
-    </div>
-
-  </div>
-</div>
-
-<!-- ═══════════════ KEY TAKEAWAYS ═══════════════ -->
-<div class="section">
-  <div class="section-hd open" onclick="toggleSection(this)">
-    <div class="section-label">💡 Key Takeaways<span class="section-status" id="status-takeaways"></span></div>
-    <span class="toggle-ic">▾</span>
-  </div>
-  <div class="section-body">
-    <div class="g3">
-      <div class="card"><div class="card-title">1. Where are we winning?</div><textarea id="reflect-right" placeholder=""></textarea></div>
-      <div class="card"><div class="card-title">2. Where is our bottleneck?</div><textarea id="reflect-learn" placeholder=""></textarea></div>
-      <div class="card"><div class="card-title">3. What does the team need from leadership to win today?</div><textarea id="reflect-change" placeholder=""></textarea></div>
-    </div>
-  </div>
-</div>
-
 </main>
 <div id="toast">✓ Saved!</div>
 
@@ -715,23 +626,7 @@ function calcAll() {
 
 }
 
-
-function calcCommitments() {
-  const hvacCompleting  = n('c-hvac-10')+n('c-hvac-59')+n('c-hvac-14')+n('c-hvac-parts')+n('c-hvac-inst-completing');
-  const hvacSold        = n('c-hvac-est')+n('c-hvac-future');
-  const plumbCompleting = n('c-pl-svc')+n('c-pl-maint')+n('c-pl-inst');
-  const plumbSold       = n('c-pl-est')+n('c-pl-future');
-  const grandTotal      = hvacCompleting + hvacSold + plumbCompleting + plumbSold;
-  const totalJobs       = n('c-hvac-10-jobs')+n('c-hvac-59-jobs')+n('c-hvac-14-jobs')+n('c-hvac-parts-jobs')+n('c-hvac-est-jobs')+n('c-hvac-future-jobs')+n('c-hvac-inst-jobs')+n('c-pl-svc-jobs')+n('c-pl-maint-jobs')+n('c-pl-inst-jobs')+n('c-pl-est-jobs')+n('c-pl-future-jobs');
-
-  sv('disp-c-hvac-completing',  fmt(hvacCompleting));
-  sv('disp-c-hvac-sold',        fmt(hvacSold));
-  sv('disp-c-plumb-completing', fmt(plumbCompleting));
-  sv('disp-c-plumb-sold',       fmt(plumbSold));
-  sv('disp-c-grand-total',      fmt(grandTotal));
-  sv('disp-c-total-jobs',       totalJobs);
-}
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbynNqVXX5D9IqGiW1Xd8wCWxEYfjHgASw7mbzcFlf2CViiWjxl6ZNtiup8PsyVgLk5oSQ/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyyfB32cZZIf1-ZItieZTJhxajsjgpXBiQGj9sWr_qSq0CDLp47oC3t1VKf4hoNr1q-fA/exec';
 
 // All fields in sheet-column order
 const FIELDS = [
@@ -838,16 +733,6 @@ const SECTIONS = {
     's-pl-maint-ran','s-pl-maint-sold','s-pl-maint-rev',
     's-pl-inst-ran','s-pl-inst-sold','s-pl-inst-rev','s-pl-installed',
     's-hvac-10-soldrev','s-hvac-59-soldrev','s-hvac-14-soldrev','s-hvac-parts-soldrev','s-pl-svc-soldrev','s-pl-maint-soldrev','s-pl-inst-soldrev','s-hvac-warranty-jobs','s-hvac-warranty-rev','s-hvac-goback-jobs','s-hvac-goback-rev','s-pl-warranty-jobs','s-pl-warranty-rev','s-pl-goback-jobs','s-pl-goback-rev'
-  ],
-  takeaways: [
-    'reflect-right','reflect-learn','reflect-change'
-  ],
-  commitments: [
-    'c-hvac-10','c-hvac-59','c-hvac-14','c-hvac-est','c-hvac-parts','c-hvac-completing',
-    'c-hvac-inst-completing','c-hvac-inst-sales',
-    'c-pl-est','c-pl-svc','c-pl-maint','c-pl-inst','c-pl-completing',
-    'c-hvac-future','c-pl-future',
-    'c-hvac-10-jobs','c-hvac-59-jobs','c-hvac-14-jobs','c-hvac-parts-jobs','c-hvac-est-jobs','c-hvac-future-jobs','c-hvac-inst-jobs','c-pl-svc-jobs','c-pl-maint-jobs','c-pl-inst-jobs','c-pl-est-jobs','c-pl-future-jobs'
   ]
 };
 
@@ -937,9 +822,8 @@ function loadEntry() {
         loadFromLocal(date);
       }
       calcAll();
-      calcCommitments();
     })
-    .catch(() => { loadFromLocal(date); calcAll(); calcCommitments(); });
+    .catch(() => { loadFromLocal(date); calcAll(); });
 }
 
 function loadFromLocal(date) {
@@ -949,7 +833,6 @@ function loadFromLocal(date) {
     FIELDS.forEach(id => { const e = el(id); if (e && d[id] !== undefined) e.value = d[id]; });
     showToast('Loaded from local backup');
   }
-  calcCommitments();
 }
 
 // Manual Save button — patches all sections at once
@@ -1012,21 +895,8 @@ function toggleSection(hd) {
 // ═══════════ INIT ═══════════
 window.addEventListener('DOMContentLoaded', () => {
   el('today-date').textContent = new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
-  el('huddle-date').value = new Date().toISOString().split('T')[0];
+  { const d = new Date(); el('huddle-date').value = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
   document.querySelectorAll('.cb-table input').forEach(i => i.addEventListener('input', calcAll));
-  // Wire commitment inputs to calcCommitments AND auto-save
-  ['c-hvac-10','c-hvac-59','c-hvac-14','c-hvac-est','c-hvac-parts','c-hvac-completing',
-   'c-hvac-inst-completing','c-hvac-inst-sales',
-   'c-pl-est','c-pl-svc','c-pl-maint','c-pl-inst','c-pl-completing',
-   'c-hvac-future','c-pl-future'
-  ].forEach(id => {
-    const e = el(id);
-    if (e) {
-      e.addEventListener('input', calcCommitments);
-      e.addEventListener('input', () => scheduleAutoSave('commitments'));
-    }
-  });
-
   // Wire auto-save to each section's inputs
   Object.entries(SECTIONS).forEach(([key, fieldIds]) => {
     fieldIds.forEach(id => {
