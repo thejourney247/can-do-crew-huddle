@@ -355,106 +355,6 @@
 
     </div>
 
-    <!-- ROW 3: 72-hour look-ahead inside CC section -->
-    <hr class="divider" style="margin-top:1.25rem;">
-    <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.85rem;">72-Hour Call Look-Ahead</div>
-    <div class="g2">
-
-      <!-- HVAC Board -->
-      <div>
-        <div style="font-size:0.72rem;font-weight:700;color:var(--text);margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.07em;">HVAC</div>
-        <table class="cb-table">
-          <thead>
-            <tr>
-              <th class="left">Category</th>
-              <th>Today</th>
-              <th>Tomorrow</th>
-              <th>72 hrs</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td class="left">AC &lt;5 yrs</td>     <td><input type="number" id="cb-ac5-today"      min="0" placeholder="0"></td><td><input type="number" id="cb-ac5-tom"      min="0" placeholder="0"></td><td><input type="number" id="cb-ac5-72"      min="0" placeholder="0"></td></tr>
-            <tr><td class="left">AC 5–9 yrs</td>       <td><input type="number" id="cb-ac59-today"     min="0" placeholder="0"></td><td><input type="number" id="cb-ac59-tom"     min="0" placeholder="0"></td><td><input type="number" id="cb-ac59-72"     min="0" placeholder="0"></td></tr>
-            <tr><td class="left">AC 10+ yrs</td>       <td><input type="number" id="cb-ac10-today"     min="0" placeholder="0"></td><td><input type="number" id="cb-ac10-tom"     min="0" placeholder="0"></td><td><input type="number" id="cb-ac10-72"     min="0" placeholder="0"></td></tr>
-            <tr><td class="left">Warranty</td>         <td><input type="number" id="cb-warranty-today" min="0" placeholder="0"></td><td><input type="number" id="cb-warranty-tom" min="0" placeholder="0"></td><td><input type="number" id="cb-warranty-72" min="0" placeholder="0"></td></tr>
-            <tr><td class="left">Repairs / Go-backs</td><td><input type="number" id="cb-repairs-today" min="0" placeholder="0"></td><td><input type="number" id="cb-repairs-tom" min="0" placeholder="0"></td><td><input type="number" id="cb-repairs-72" min="0" placeholder="0"></td></tr>
-            <tr>
-              <td class="left" style="color:var(--orange);font-size:0.78rem;">Total</td>
-              <td><span class="cb-total" id="cb-hvac-total-today">0</span></td>
-              <td><span class="cb-total" id="cb-hvac-total-tom">0</span></td>
-              <td><span class="cb-total" id="cb-hvac-total-72">0</span></td>
-            </tr>
-          </tbody>
-        </table>
-        <!-- HVAC Techs Available -->
-        <table class="cb-table" style="margin-top:0.75rem;">
-          <thead>
-            <tr>
-              <th class="left">Techs</th>
-              <th>Today</th>
-              <th>Tomorrow</th>
-              <th>72 hrs</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="left" style="color:var(--text);font-weight:600;">Available</td>
-              <td><input type="number" id="cb-hvac-techs-today" min="0" placeholder="0"></td>
-              <td><input type="number" id="cb-hvac-techs-tom"   min="0" placeholder="0"></td>
-              <td><input type="number" id="cb-hvac-techs-72"    min="0" placeholder="0"></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Plumbing Board -->
-      <div>
-        <div style="font-size:0.72rem;font-weight:700;color:var(--text);margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.07em;">Plumbing</div>
-        <table class="cb-table">
-          <thead>
-            <tr>
-              <th class="left">Category</th>
-              <th>Today</th>
-              <th>Tomorrow</th>
-              <th>72 hrs</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td class="left">Service Calls</td>  <td><input type="number" id="cb-serv-today"       min="0" placeholder="0"></td><td><input type="number" id="cb-serv-tom"       min="0" placeholder="0"></td><td><input type="number" id="cb-serv-72"       min="0" placeholder="0"></td></tr>
-            <tr><td class="left">Installs</td>       <td><input type="number" id="cb-pl-inst-today"    min="0" placeholder="0"></td><td><input type="number" id="cb-pl-inst-tom"    min="0" placeholder="0"></td><td><input type="number" id="cb-pl-inst-72"    min="0" placeholder="0"></td></tr>
-            <tr><td class="left">Maintenance</td>    <td><input type="number" id="cb-pl-maint-today"   min="0" placeholder="0"></td><td><input type="number" id="cb-pl-maint-tom"   min="0" placeholder="0"></td><td><input type="number" id="cb-pl-maint-72"   min="0" placeholder="0"></td></tr>
-            <tr><td class="left">Warranty</td>       <td><input type="number" id="cb-pl-warranty-today" min="0" placeholder="0"></td><td><input type="number" id="cb-pl-warranty-tom" min="0" placeholder="0"></td><td><input type="number" id="cb-pl-warranty-72" min="0" placeholder="0"></td></tr>
-            <tr>
-              <td class="left" style="color:var(--orange);font-size:0.78rem;">Total</td>
-              <td><span class="cb-total" id="cb-pl-total-today">0</span></td>
-              <td><span class="cb-total" id="cb-pl-total-tom">0</span></td>
-              <td><span class="cb-total" id="cb-pl-total-72">0</span></td>
-            </tr>
-          </tbody>
-        </table>
-        <!-- Plumbing Techs Available -->
-        <table class="cb-table" style="margin-top:0.75rem;">
-          <thead>
-            <tr>
-              <th class="left">Techs</th>
-              <th>Today</th>
-              <th>Tomorrow</th>
-              <th>72 hrs</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="left" style="color:var(--text);font-weight:600;">Available</td>
-              <td><input type="number" id="cb-plumb-techs-today" min="0" placeholder="0"></td>
-              <td><input type="number" id="cb-plumb-techs-tom"   min="0" placeholder="0"></td>
-              <td><input type="number" id="cb-plumb-techs-72"    min="0" placeholder="0"></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-    </div>
-
   </div>
 </div>
 
@@ -679,12 +579,6 @@ const colorClass = (v, good, warn) => v>=good?'green':v>=warn?'yellow':'red';
 
 // ═══════════ MAIN CALC ═══════════
 function calcAll() {
-  // Call board totals
-  ['today','tom','72'].forEach(day => {
-    sv('cb-hvac-total-'+day, n('cb-ac5-'+day)+n('cb-ac59-'+day)+n('cb-ac10-'+day)+n('cb-warranty-'+day)+n('cb-repairs-'+day) || 0);
-    sv('cb-pl-total-'+day,   n('cb-serv-'+day)+n('cb-pl-inst-'+day)+n('cb-pl-maint-'+day)+n('cb-pl-warranty-'+day) || 0);
-  });
-
   // CC calcs
   const inQ       = n('cc-inbound-qual');
   const inB       = n('cc-inbound-booked');
@@ -872,20 +766,7 @@ const SECTIONS = {
     'cc-inbound-total','cc-inbound-qual','cc-inbound-booked',
     'cc-outbound','cc-outbound-booked','cc-other-leads',
     'cc-cancel-hvac','cc-cancel-plumb',
-    'mem-opp','mem-hvac','mem-plumb','mem-cc'
-  ],
-  callboard: [
-    'cb-ac5-today','cb-ac5-tom','cb-ac5-72',
-    'cb-ac59-today','cb-ac59-tom','cb-ac59-72',
-    'cb-ac10-today','cb-ac10-tom','cb-ac10-72',
-    'cb-warranty-today','cb-warranty-tom','cb-warranty-72',
-    'cb-repairs-today','cb-repairs-tom','cb-repairs-72',
-    'cb-hvac-techs-today','cb-hvac-techs-tom','cb-hvac-techs-72',
-    'cb-serv-today','cb-serv-tom','cb-serv-72',
-    'cb-pl-inst-today','cb-pl-inst-tom','cb-pl-inst-72',
-    'cb-pl-maint-today','cb-pl-maint-tom','cb-pl-maint-72',
-    'cb-pl-warranty-today','cb-pl-warranty-tom','cb-pl-warranty-72',
-    'cb-plumb-techs-today','cb-plumb-techs-tom','cb-plumb-techs-72',
+    'mem-opp','mem-hvac','mem-plumb','mem-cc',
     'wx-high','wx-low'
   ],
   reviews: [
