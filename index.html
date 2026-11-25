@@ -797,7 +797,7 @@ function calcAll() {
 
 }
 
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzrbdqNFS9K2j6iY1KrXlBn5MQ72tNEGnNzD_uwLsge8s5CrKO-bFR00CETl2hrpbbTCQ/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx4B14bc1-aI_3LHevL5cIAoz9-4TqPlk8r_dxcl1-S4s-PEbw8zQcWH7fTAkiRH5uZbg/exec';
 
 // All fields in sheet-column order
 const FIELDS = [
@@ -1138,10 +1138,16 @@ async function tLoad(force){
     const to=new Date(); const from=new Date(); from.setDate(from.getDate()-400);
     const r=await fetch(SCRIPT_URL+'?action=techs&from='+tfd(from)+'&to='+tfd(to));
     const j=await r.json();
-    if(j.status!=='ok') throw new Error(j.message||'error');
-    T.rows=j.rows; st.textContent='';
+    if(j.status==='error') throw new Error(j.message||'error');
+    if(!Array.isArray(j.rows)) throw new Error('OLD_SCRIPT');
+    T.rows=j.rows; st.textContent=''; T.err='';
     if(!T.userNav && T.rows.length){ const last=T.rows.reduce((m,x)=>x[0]>m?x[0]:m,''); T.anchor=last; }
-  }catch(e){ st.textContent='Could not load: '+e.message+' — make sure the Apps Script is deployed as a new version.'; T.rows=T.rows||[]; }
+  }catch(e){
+    T.err = e.message==='OLD_SCRIPT'
+      ? 'The Google Apps Script is still the old version, so it does not know how to send technician data yet. In the Sheet: Extensions → Apps Script → paste the new Code.gs → Deploy → Manage deployments → pencil → Version: New version → Deploy. Then press Refresh here.'
+      : 'Could not load technician data ('+e.message+'). Check your internet connection and press Refresh.';
+    st.textContent=''; T.rows=T.rows||[];
+  }
   T.loading=false; tRender();
 }
 function tAgg(rows){
@@ -1171,7 +1177,7 @@ function tRender(){
   document.getElementById('tk-combo').textContent=tMoney(grand);
   const th=(key,label)=>'<th class="'+(T.sort===key?'on':'')+'" onclick="tSort(\''+key+'\')">'+label+(T.sort===key?(T.dir<0?' ▼':' ▲'):'')+'</th>';
   let h='<tr>'+th('name','Technician')+th('close','Close %')+th('ran','Jobs Ran')+th('mclose','Maintenance')+th('rclose','Repair')+th('eclose','Estimates')+th('wg','Warr / Go-Back')+th('comp','Completed $')+th('sold','Sold $')+th('combo','Combo $')+'</tr>';
-  if(!list.length){ h+='<tr><td colspan="10" class="t-empty">No technician data for this period yet. Each morning the 6 AM sync posts the previous day\'s numbers.</td></tr>'; }
+  if(!list.length){ h+='<tr><td colspan="10" class="t-empty">'+(T.err?'<b style="color:var(--red)">'+tEsc(T.err)+'</b>':'No technician data for this period yet. Each morning the 6 AM sync posts the previous day\'s numbers.')+'</td></tr>'; }
   list.forEach(x=>{
     h+='<tr><td>'+tEsc(x.name)+'<small>'+tEsc(x.team)+'</small></td><td>'+tCell(x.won,x.ran)+'</td><td>'+x.ran+'</td><td>'+tCell(x.msold,x.mran)+'</td><td>'+tCell(x.rsold,x.rran)+'</td><td>'+tCell(x.esold,x.eran)+'</td><td>'+x.warr+' / '+x.gb+'</td><td>'+tMoney(x.comp)+'</td><td>'+tMoney(x.sold)+'</td><td class="big">'+tMoney(x.combo)+'</td></tr>';
   });
